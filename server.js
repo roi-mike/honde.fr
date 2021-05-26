@@ -5,7 +5,6 @@ const servePort = process.env.PORT || 8080;
 
 app.use('/static',express.static('public/css'));
 app.use('/imgstatic',express.static('public/assets'));
-app.use(express.static('/public/css'));
 
 
 app.get('/',(req,res) => {
