@@ -1,30 +1,82 @@
 const express = require('express');
+const session = require('express-session');
+var favicon = require('serve-favicon');
+var path = require('path');
 const app = express();
+const ejs = require('ejs');
 
+//SESSION
+app.use(session({
+    secret: 'honde',
+    resave: false,
+    saveUninitialized: false,
+    cookie:{
+      maxAge: (1000*60)*2
+    }
+}));
+
+//BDD CONNEXION
+require('./Models/dbConfig.js');
+
+//ROUTE SERVEUR
 const servePort = process.env.PORT || 8080;
 
-app.use('/static',express.static('public/css'));
+
+
+//PARSE METHODE POST
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+//FIVICON
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+//EJS
+app.set('view engine', 'ejs');
+
+//CSS STATIC
+app.use('/css',express.static('public/css'));
+app.use('/js',express.static('public/javascript'));
 app.use('/imgstatic',express.static('public/assets'));
 
 
+//Middleware INCLUDE
+const checkfield = require('./Middleware/checkfield');
+const validation_registration_midd = require('./Middleware/validation_registration_midd');
+
+
+//Middleware
+app.use('/checkfield', checkfield);
+app.use('/account/validationregistration/:toke_validation_user', validation_registration_midd);
+
+
 app.get('/',(req,res) => {
-    res.sendFile(__dirname+'/views/index_view_component.html');
+    res.render('index_view_component.ejs');
 });
 
 app.get('/accounts/login',(req,res) => {
-    res.sendFile(__dirname+'/views/login_view_component.html');
+    res.render('login_view_component.ejs');
 });
 
 app.get('/accounts/emailsignup',(req,res) => {
-    res.sendFile(__dirname+'/views/register_view_component.html');
+    res.render('register_view_component.ejs');
 });
 
 app.get('/accounts/password/reset',(req,res) => {
-    res.sendFile(__dirname+'/views/pwd_reset_view_component.html');
+    res.render('pwd_reset_view_component.ejs');
+});
+
+app.get('/account/validationregistration/:toke_validation_user',(req,res) => {
+
+    console.log("PARAMETTRE", req.params);
+
+    res.render('validation_registration.ejs');
+});
+
+app.post('/checkfield',(req,res) => {
 });
 
 app.get('**',(req,res) => {
-    res.sendFile(__dirname+'/views/erreur_view_component.html');
+    res.render('erreur_view_component.ejs');
 });
 
 app.listen(servePort);

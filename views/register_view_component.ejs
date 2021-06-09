@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Honde</title>
+    <link rel="stylesheet" href="/css/register_view_component.css">
+</head>
+<body>
+    <div id="register_container_div">
+        <div id="form_register_container_div">
+            <img
+                id="logo_honde_img"
+                src="/imgstatic/logoinstagram.png"
+                alt="logo instagram"
+              />
+              <div id="message_element_form_register_container_div" class="element_form_register_container_div">
+                <span id="message_element_form_register_container_span">Inscrivez-vous pour voir les <br/> photos et vidéos de vos amis.</span>
+              </div>
+            <form id="register_type_view">
+                <div
+                  id="email_form_register_container_div"
+                  class="element_form_register_container_div"
+                >
+                  <label for="email_user"></label>
+                  <input
+                    id="email_user"
+                    class="element_form_register_container_center element_input"
+                    name="email_user"
+                    type="text"
+                    placeholder=" Votre email"
+                  />
+                </div>
+                <!--FIRST NAME-->
+                <div
+                  id="firstname_form_register_container_div"
+                  class="element_form_register_container_div"
+                >
+                  <label for="firstname_user"></label>
+                  <input
+                    id="firstname_user"
+                    class="element_form_register_container_center element_input"
+                    name="firstname_user"
+                    type="text"
+                    placeholder=" Votre nom"
+                  />
+                </div>
+    
+                <!--LAST NAME-->
+                <div
+                  id="lastname_form_register_container_div"
+                  class="element_form_register_container_div"
+                >
+                  <label for="lastname_user"></label>
+                  <input
+                    name="lastname_user"
+                    id="lastname_user"
+                    class="element_form_register_container_center element_input"
+                    type="text"
+                    placeholder=" Votre prénom"
+                  />
+                </div>
+    
+                <!--PASSE WORD-->
+                <div
+                  id="password_form_register_container_div"
+                  class="element_form_register_container_div"
+                >
+                  <label for="password_user"></label>
+                  <input
+                    id="password_user"
+                    class="element_form_register_container_center element_input"
+                    name="password_user"
+                    type="text"
+                    placeholder=" Votre mot de passe au moins 6 caracteres"
+                  />
+                </div>
+    
+                <!--CONFPASSE WORD-->
+                <div
+                  id="conf_password_form_register_container_div"
+                  class="element_form_register_container_div"
+                >
+                  <label for="conf_password_user"></label>
+                  <input
+                    id="conf_password_user"
+                    class="element_form_register_container_center element_input"
+                    type="text"
+                    name="conf_password_user"
+                    placeholder=" Confirmer votre mot de passe"
+                  />
+                </div>
+    
+                <div id="button_user" class="element_form_register_container_div">
+                  <button
+                    id="button_user"
+                    class="element_form_register_container_center"
+                    type="submit"
+                  >
+                    Connexion
+                  </button>
+                </div>
+              </form>
+              <div id="info_session_element_form_register_container_center_div">
+                En vous inscrivant, vous acceptez nos Conditions générales. Découvrez comment nous recueillons, utilisons et partageons vos données en lisant notre Politique d’utilisation des données et comment nous utilisons les cookies et autres technologies similaires en consultant notre Politique d’utilisation des cookies.
+              </div>
+              <div id="info_session_element_form_register_container_center_div">
+                <span>
+                  Vous avez un compte ? 
+                </span>
+                <a href="/accounts/login/">
+                    <span>
+                  Connectez-vous
+                    </span>
+                </a>
+              </div>
+        </div>
+    </div>
+    <script src="/js/Ajax_register_view_component.js"></script>
+</body>
+</html>
