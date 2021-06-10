@@ -1,12 +1,16 @@
 const express = require('express');
 const session = require('express-session');
+var FileStore = require('session-file-store')(session);
 var favicon = require('serve-favicon');
 var path = require('path');
 const app = express();
 const ejs = require('ejs');
 
+var fileStoreOptions = {};
+
 //SESSION
 app.use(session({
+    store: new FileStore(fileStoreOptions),
     secret: 'honde',
     resave: false,
     saveUninitialized: false,
