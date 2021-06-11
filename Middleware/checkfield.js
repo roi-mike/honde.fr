@@ -74,7 +74,7 @@ const checkfield = async (req, res, next) => {
                 firstname_user: firstname_user,
                 lastname_user: lastname_user,
                 password_user: password_user_crypt,
-                toke_valid_user:toke_validation_user,
+                toke_valid_user: toke_validation_user,
             });
             use_save_register.save();
 

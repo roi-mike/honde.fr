@@ -7,6 +7,7 @@ const validation_registration_midd = async (req, res, next) => {
         toke_valid_user = req.params.toke_validation_user;
         //COLLECTION
         const { User } = require('../Models/User_db.js');
+        
         //UTILISE LES FONCTIONS DE MONGODB POUR MODIFIER
         mongoose.set('useFindAndModify', false);
 
