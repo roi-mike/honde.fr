@@ -60,6 +60,7 @@ module.exports = class Mailer{
             transporter.sendMail(mailOptions, (err, info) => {
             if (err) {
                 console.log(err);
+                console.log(err);
             } else {
                 console.log(info);
             }
