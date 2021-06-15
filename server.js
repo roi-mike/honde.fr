@@ -42,15 +42,20 @@ app.use('/imgstatic',express.static('public/assets'));
 //Middleware INCLUDE
 const checkfield = require('./Middleware/checkfield');
 const validation_registration_midd = require('./Middleware/validation_registration_midd');
+//const account_midd = require('./Middleware/account_midd');
 
 
-//Middleware
+//Middleware URL
 app.use('/checkfield', checkfield);
 app.use('/account/validationregistration/:toke_validation_user', validation_registration_midd);
-
+//app.use('/account', account_midd);
 
 app.get('/',(req,res) => {
     res.render('index_view_component.ejs');
+});
+
+app.get('/account',(req,res) => {
+    res.render('account_view_component.ejs');
 });
 
 app.get('/accounts/login',(req,res) => {
@@ -71,8 +76,12 @@ app.get('/account/validationregistration/:toke_validation_user',(req,res) => {
 
     res.render('validation_registration.ejs');
 });
-
+//AUTHENTICATE AJAX REQUEST
 app.post('/checkfield',(req,res) => {
+});
+//DECONNECTÉ AJAX REQUEST
+app.get('/deconnected',(req,res) => {
+    console.log('DECONNECTION')
 });
 
 app.get('**',(req,res) => {

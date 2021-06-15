@@ -1,0 +1,118 @@
+  <div id="nav_barre_connection_div">
+    <div id="logo_honde_div">
+      <a href="/">
+        <img
+          id="logo_honde_img"
+          src="/imgstatic/logoinstagram.png"
+          alt=""
+          srcset=""
+        />
+      </a>
+    </div>
+
+    <div id="relationship_div">
+      <input
+        id="search_relationship_input"
+        placeholder="Rechercher"
+        type="text"
+      />
+    </div>
+
+    <!--AUTENTIFICATION-->
+    <div id="authentification_div">
+      <a href="/account">
+        <i id="connection_authentification_a" class="fas fa-home"></i>
+      </a>
+
+      <a href="/direct/inbox/">
+        <i class="far fa-paper-plane"></i>
+      </a>
+
+      <!--COMPASS-->
+
+      <% if(true){ %>
+      <a href="/explore">
+        <i
+          id="fa-compass-white"
+          class="far fa-compass"
+        ></i>
+      </a>
+      <%}else{%>
+        <i
+          id="fa-compass-black"
+          class="fas fa-compass"
+        ></i>
+      <%}%>
+
+
+      <!--HEAR-->
+        <i
+          id="fa-heart-white"
+          class="far fa-heart click-heart"
+        ></i>
+
+          <div id="hear_element_authentification_div">
+            <p id="title_hear_element_authentification_p">Ce mois-ci</p>
+            <div id="like_element_authentification_div">
+              <img
+                id="img_personnage_like_authentification_a"
+                src="/imgstatic/nabila.jpg"
+                alt=""
+              />
+              <div id="info_for_even_authentification_div">
+                <span id="id_even_authentification_div">Nabila</span> a mentionné
+                votre nom dans un commentaire : @roimike merci mon pote.
+                <time id="when_like_authentification_time">1 sem</time>
+              </div>
+              <img
+                id="img_mentinonnee_like_authentification_a"
+                src="/imgstatic/chat.jpg"
+                alt=""
+              />
+            </div>
+          </div>
+
+      <!--IMG PERSONNE-->
+
+        <img
+          id="img_personnage_authentification_a"
+          src="/imgstatic/boo.jpg"
+          alt=""
+        />
+        <div id="img_personne_element_authentification_div">
+          <!--PROFIL USER ACCOUNT-->
+          <div class="user_account_authentification_div">
+            <div class="icon_user_account_authentification_div">
+              <i class="far fa-user-circle"></i>
+            </div>
+            <div class="title_user_account_authentification_div">Profil</div>
+          </div>
+          <!--SAVE USER ACCOUNT-->
+          <div class="user_account_authentification_div">
+            <div class="icon_user_account_authentification_div">
+              <i class="far fa-bookmark"></i>
+            </div>
+            <div class="title_user_account_authentification_div">Enregistré</div>
+          </div>
+          <!--SET USER ACCOUNT-->
+          <div class="user_account_authentification_div">
+            <div class="icon_user_account_authentification_div">
+              <i class="fas fa-cog"></i>
+            </div>
+            <div class="title_user_account_authentification_div">Paramètres</div>
+          </div>
+          <div class="user_account_authentification_div">
+            <div class="right_user_account_authentification_div">
+              Hondi vous aimez
+            </div>
+          </div>
+          <div class="user_account_authentification_div">
+            <a href="/deconnected">
+              <div class="right_user_account_authentification_div">Déconnexion</div>
+            </a>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <script src="/js/barre_nav_view_component.js" ></script>
