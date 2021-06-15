@@ -5,7 +5,7 @@ const crypt_salt = bcrypt.genSaltSync(nb_salt);
 
 const checkfield = async (req, res, next) => {
 
-    const form_register_type_view = req.body.form_register_type_view;
+    const form_type_view = req.body.form_type_view;
     const email_user = req.body.email_user;
     const firstname_user = req.body.firstname_user;
     const lastname_user = req.body.lastname_user;
@@ -21,8 +21,8 @@ const checkfield = async (req, res, next) => {
     //VERIFICATION
     var regex_email = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-
-    if(form_register_type_view === 'register_type_view'){
+    /*FORM REGISTER*/
+    if(form_type_view === 'register_type_view'){
 
 
         //Email CHECK
@@ -89,6 +89,57 @@ const checkfield = async (req, res, next) => {
         }
     }
 
+
+    /*FORM LOGIN CONNECTION*/
+    if(form_type_view === 'login_type_view'){
+        
+        if(regex_email.test(String(email_user)) && password_user.length >= 6 ){
+
+            await User.findOne({ email_user: email_user })
+            .exec()
+            .then(async (find_user)=> {
+                reponse_check["find_useryes"] = "USER FIND";
+
+                var compare_password_user = bcrypt.compareSync(password_user, find_user.password_user)
+                    // result == true 
+                    if(compare_password_user){
+                        reponse_check["find_user"] = " TROUVÉ ";
+                        console.log(' find_user ', find_user);
+                        if(find_user.email_user === email_user && find_user.role < 2){
+                            console.log('EMAIL OK 2')
+                            await User.findOneAndUpdate({email_user : email_user},{$set:{role:2}})
+                                .exec()
+                                .then(result => {
+                                    
+                                    if(result){
+                                        reponse_check["find_user_change_role"] = " TROUVÉ ";
+                                        //REDIRECTION ACCOUNT 
+                                        next();
+                                    }
+
+                                })
+                                .catch(erreur => {
+                                    console.log('ERREUR VALIDATION TOKEN : ',erreur);
+                                })
+                        }else{
+                            reponse_check["find_user_withou_change_role"] = " TROUVÉ ";
+                            //REDIRECTION ACCOUNT 
+                            next();
+                        }
+                    }
+                    if(!compare_password_user){
+                        reponse_check["find_userrrr"] = "Email ou mot de passe incorrecte ";
+                    }
+            })
+            console.log('LOGIN FIN');
+        }
+
+
+
+
+
+    }
+    
     res.status(200).json(reponse_check);
 }
 

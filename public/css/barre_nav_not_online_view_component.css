@@ -1,0 +1,69 @@
+/*DECONNECTION*/
+#nav_barre_deconnection_div{
+    position: fixed;
+    width: 100%;
+    height:53px;
+    background-color: white;
+    border-bottom: 1px solid gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+    /*DIV logo*/
+
+#logo_honde_div{
+    width: 290px;
+    height: 50%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+#logo_honde_img{
+    height: 100%;
+    width: 35%;
+}
+
+#relationship_div{
+    width: 250px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+}
+
+#search_relationship_input{
+    width: 200px;
+    height: 25px; 
+    border-radius: 5px;
+    border: 1px solid gray;               
+}
+
+/*DIV authentification*/
+#authentification_div{
+    width: 400px;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#connection_authentification_btn{
+    width: 120px;
+    height: 30px;
+    font-size: 100%;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    background-color: rgb(21, 149, 246);
+}
+
+#register_authentification_btn{
+    width: 120px;
+    height: 30px;
+    font-size: 100%;
+    border-radius: 5px;
+    border: none;
+    color: rgb(21, 149, 246);
+    background-color: white;
+}

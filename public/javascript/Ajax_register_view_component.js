@@ -1,14 +1,15 @@
 "use strict";
 
-const form_register_type_view = document.getElementById('register_type_view').getAttribute('id');
+const form_type_view = document.getElementById('register_type_view').getAttribute('id');
 const button_user = document.getElementById("button_user");
 
-function ajax_register(form_register_type_view, email_user, firstname_user, lastname_user, password_user, conf_password_user){
+function ajax_register(form_type_view, email_user, firstname_user, lastname_user, password_user, conf_password_user){
 
   function reqListener(){
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
 
       var reponce_register = JSON.parse(this.response);
+      console.log(' reponce_register ', reponce_register);
       var remove_element_1 = document.getElementById("email_user_erreur");
       var remove_element_2 = document.getElementById("firstname_user_erreur");
       var remove_element_3 = document.getElementById("lastname_user_erreur");
@@ -46,7 +47,7 @@ function ajax_register(form_register_type_view, email_user, firstname_user, last
   oReq.onload = reqListener;
   oReq.open("post", "/checkfield", true);
   oReq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  oReq.send("form_register_type_view="+form_register_type_view+"&"+"email_user="+email_user+"&"+"firstname_user="+firstname_user+"&"+"lastname_user="+lastname_user+"&"+"password_user="+password_user+"&"+"conf_password_user="+conf_password_user);
+  oReq.send("form_type_view="+form_type_view+"&"+"email_user="+email_user+"&"+"firstname_user="+firstname_user+"&"+"lastname_user="+lastname_user+"&"+"password_user="+password_user+"&"+"conf_password_user="+conf_password_user);
 
   //
 }
@@ -60,7 +61,7 @@ button_user.addEventListener('click', function(evt){
   const password_user = document.getElementById("password_user").value;
   const conf_password_user = document.getElementById("conf_password_user").value;
   
-  ajax_register(form_register_type_view, email_user, firstname_user, lastname_user, password_user, conf_password_user);
+  ajax_register(form_type_view, email_user, firstname_user, lastname_user, password_user, conf_password_user);
 });
 
 
