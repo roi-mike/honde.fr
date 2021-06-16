@@ -99,6 +99,8 @@ app.get('/account/validationregistration/:toke_validation_user',(req,res) => {
     console.log('req.session.mail_user 95 : ', req.session.mail_user);
 
     res.render('validation_registration.ejs');
+
+    //lol
 });
 //AUTHENTICATE AJAX REQUEST
 app.post('/checkfield',async (req,res, next) => {
