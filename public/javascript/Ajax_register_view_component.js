@@ -31,14 +31,23 @@ function ajax_register(form_type_view, email_user, firstname_user, lastname_user
       if(remove_element_5){
         remove_element_5.remove();
       }
-      for(var i = 0; i < Object.keys(reponce_register).length; i++){
-        var tag_insert = document.getElementById(Object.keys(reponce_register)[i]);
-        var create_write_element_span = document.createElement("div");
-        create_write_element_span.setAttribute('id',Object.keys(reponce_register)[i]+"_erreur");
-        create_write_element_span.style.color = "red";
-        create_write_element_span.setAttribute('class',"span_erreur");
-        create_write_element_span.innerHTML = Object.values(reponce_register)[i];
-        tag_insert.after(create_write_element_span);
+      //IF ALL IS CORRECTS WE REDIRECT
+      if(reponce_register.redirection_login){
+        window.location.href = reponce_register.redirection_login;
+      }
+
+      //IF THERE IS HAVE ERROR DISPLAY THE ERRORS
+      if(!reponce_register.redirection_login){
+          for(var i = 0; i < Object.keys(reponce_register).length; i++){
+          var tag_insert = document.getElementById(Object.keys(reponce_register)[i]);
+          var create_write_element_span = document.createElement("div");
+          create_write_element_span.setAttribute('id',Object.keys(reponce_register)[i]+"_erreur");
+          create_write_element_span.style.color = "red";
+          create_write_element_span.setAttribute('class',"span_erreur");
+          create_write_element_span.innerHTML = Object.values(reponce_register)[i];
+          
+          tag_insert.after(create_write_element_span);
+          }
       }
     }
   }

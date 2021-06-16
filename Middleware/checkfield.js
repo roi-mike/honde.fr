@@ -5,13 +5,9 @@ const crypt_salt = bcrypt.genSaltSync(nb_salt);
 
 const checkfield = async (req, res, next) => {
 
-    const form_type_view = req.body.form_type_view;
-    const email_user = req.body.email_user;
-    const firstname_user = req.body.firstname_user;
-    const lastname_user = req.body.lastname_user;
-    const password_user = req.body.password_user;
-    const conf_password_user = req.body.conf_password_user;
+   
 
+<<<<<<< HEAD
     //COLLECTION
     const { User } = require('../Models/User_db.js');
 
@@ -139,8 +135,9 @@ const checkfield = async (req, res, next) => {
 
 
     }
+=======
+>>>>>>> main
     
-    res.status(200).json(reponse_check);
 }
 
 
