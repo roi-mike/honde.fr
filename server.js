@@ -95,7 +95,7 @@ app.get('/account/validationregistration/:toke_validation_user',(req,res) => {
     res.render('validation_registration.ejs');
 });
 //AUTHENTICATE AJAX REQUEST
-app.post('/checkfield',async (req,res) => {
+app.post('/checkfield',async (req,res, next) => {
      //COLLECTION
      const { User } = require('./Models/User_db.js');
 
@@ -241,7 +241,7 @@ app.post('/checkfield',async (req,res) => {
                                                  req.session.lastname_user = find_user.lastname_user;
                                                  req.session.createdAt = find_user.createdAt;
  
-                                                 console.log('REQ CHECK ', req.session);
+                                                 console.log('req.session 244 ', req.session);
                                                  // res.status('301');
                                                  // res.redirect("/account");
                                                  //CYRIL ReCTIF 
@@ -266,15 +266,17 @@ app.post('/checkfield',async (req,res) => {
                             .then(async (find_user)=> {
 
                                 if(find_user){
-                                    console.log('FINI FINI', find_user)
+                                    console.log('FINI FINI ROLE 2', find_user)
                                     req.session.id_user = find_user._id;
                                     req.session.mail_user = find_user.email_user;
                                     req.session.firstname_user = find_user.firstname_user;
                                     req.session.lastname_user = find_user.lastname_user;
                                     req.session.createdAt = find_user.createdAt;
 
-                                    console.log('REQ CHECK ', req.session);
+                                    console.log(' req.session 276 ', req.session);
                                     // res.status('301');
+                                    // res.setHeader('Content-Type', 'application/json');
+                                    // res.status(404);
                                     // res.redirect("/account");
                                     //CYRIL ReCTIF 
                                     reponse_check["redirection_account"] = "/account";

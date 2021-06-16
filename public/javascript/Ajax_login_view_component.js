@@ -23,19 +23,21 @@ function ajax_register(form_type_view, email_user, password_user){
         remove_element_3.remove();
       }
 
-
-      if(reponce_login){
-        for(var i = 0; i < Object.keys(reponce_login).length; i++){
-          var tag_insert = document.getElementById(Object.keys(reponce_login)[i]);
-          var create_write_element_span = document.createElement("div");
-          create_write_element_span.setAttribute('id',Object.keys(reponce_login)[i]+"_erreur");
-          create_write_element_span.style.color = "red";
-          create_write_element_span.setAttribute('class',"span_erreur");
-          create_write_element_span.innerHTML = Object.values(reponce_login)[i];
-          
-          tag_insert.after(create_write_element_span);
+      if(!reponce_login.redirection_account){
+        if(reponce_login){
+          for(var i = 0; i < Object.keys(reponce_login).length; i++){
+            var tag_insert = document.getElementById(Object.keys(reponce_login)[i]);
+            var create_write_element_span = document.createElement("div");
+            create_write_element_span.setAttribute('id',Object.keys(reponce_login)[i]+"_erreur");
+            create_write_element_span.style.color = "red";
+            create_write_element_span.setAttribute('class',"span_erreur");
+            create_write_element_span.innerHTML = Object.values(reponce_login)[i];
+            
+            tag_insert.after(create_write_element_span);
+          }
         }
       }
+      
 
       
     //   if(remove_element_1){
