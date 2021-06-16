@@ -13,10 +13,12 @@ const crypt_salt = bcrypt.genSaltSync(nb_salt);
 //SESSION
 app.use(session({
     secret: 'honde',
+    name: 'session_user',
     resave: false,
     saveUninitialized: false,
     cookie:{
-        maxAge: (1000*60)*30
+        secure: true,
+        maxAge: (1000*60)*2
     }
 }));
 
@@ -58,17 +60,12 @@ app.use('/deconnected', deconnected);
 //app.use('/account', account_midd);
 
 app.get('/',(req,res, next) => {
-    if(req.session.mail_user){
-        res.set('Content-Type', 'text/html');
-        res.redirect(301,'/account');
-        res.end();
-        return next();
-    }
+    console.log('req.session.mail_user 62 : ', req.session);
     res.render('index_view_component.ejs');
 });
 
 app.get('/account',(req,res) => {
-    console.log("req.session.mail_user : ", req.session.mail_user);
+    console.log("req.session.mail_user 70 : ", req.session);
     res.render('account_view_component.ejs');
 });
 
@@ -77,31 +74,23 @@ app.get('/accounts/login',(req,res) => {
 });
 
 app.get('/accounts/emailsignup',(req,res) => {
-    
+    console.log('req.session.mail_user 79 : ', req.session);
     res.render('register_view_component.ejs');
 });
 
 app.get('/account/registerok/checkmail',(req,res) => {
-    console.log('/session mail: ', req.session.mail_user);
-    if(req.session.mail_user){
-        rres.status('301').redirect('/');
-    }
+    console.log('req.session.mail_user 86 : ', req.session);
     res.render('check_mail_view_component.ejs');
 });
 
 app.get('/accounts/password/reset',(req,res, next) => {
-    if(req.session.mail_user){
-        res.status('301').redirect('/');
-    }
-    console.log('/session mail: ', req.session.mail_user);
+    console.log('req.session.mail_user 89', req.session.mail_user);
     res.render('pwd_reset_view_component.ejs');
 });
 
 app.get('/account/validationregistration/:toke_validation_user',(req,res) => {
     console.log("PARAMETTRE", req.params);
-    if(req.session.mail_user){
-        res.status('301').redirect('/');
-    }
+    console.log('req.session.mail_user 95 : ', req.session.mail_user);
 
     res.render('validation_registration.ejs');
 });
@@ -251,7 +240,8 @@ app.post('/checkfield',async (req,res) => {
                                                  req.session.firstname_user = find_user.firstname_user;
                                                  req.session.lastname_user = find_user.lastname_user;
                                                  req.session.createdAt = find_user.createdAt;
-                                                 
+ 
+                                                 console.log('REQ CHECK ', req.session);
                                                  // res.status('301');
                                                  // res.redirect("/account");
                                                  //CYRIL ReCTIF 
@@ -276,12 +266,14 @@ app.post('/checkfield',async (req,res) => {
                             .then(async (find_user)=> {
 
                                 if(find_user){
+                                    console.log('FINI FINI', find_user)
                                     req.session.id_user = find_user._id;
                                     req.session.mail_user = find_user.email_user;
                                     req.session.firstname_user = find_user.firstname_user;
                                     req.session.lastname_user = find_user.lastname_user;
                                     req.session.createdAt = find_user.createdAt;
 
+                                    console.log('REQ CHECK ', req.session);
                                     // res.status('301');
                                     // res.redirect("/account");
                                     //CYRIL ReCTIF 
@@ -293,7 +285,6 @@ app.post('/checkfield',async (req,res) => {
                             .catch(erreur => {
                                 console.log('erreur =>', erreur);
                             });
-                        }
                          }
                          
                      }
@@ -311,10 +302,8 @@ app.post('/checkfield',async (req,res) => {
 });
 //DECONNECTÉ AJAX REQUEST
 app.get('/deconnected',(req,res) => {
-    if(req.session.mail_user){
-        req.session.destroy();
-        res.status('301').redirect('/');
-    }
+    req.session.destroy();
+    res.status('301').redirect('/');
     console.log('DECONNECTION')
 });
 
