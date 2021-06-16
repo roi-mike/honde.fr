@@ -1,0 +1,42 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    width: 100%;
+    height: 100vh;
+}
+#check_mail_container_div{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#check_mail_center_container_div{
+    text-align: center;
+    width: 80%;
+    height: 60%;
+}
+p{
+    font-size:190%;
+}
+#connected_check_mail_container_btn{
+    cursor: pointer;
+    font-size: 1.1rem;
+    width: 200px;
+    height: 50px;
+    background-color: gray;
+    border: none;
+}
+#emoji_check_mail_div{
+    position: relative;
+    bottom: -10px;
+    left:30%;
+    width: 40%;
+    height: 55%;
+}
+#emoji_check_mail_div img{
+    width: 100%;
+    height: 100%;
+}
