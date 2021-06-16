@@ -6,15 +6,10 @@ var path = require('path');
 const app = express();
 const ejs = require('ejs');
 
-<<<<<<< HEAD
-var fileStoreOptions = {};
-=======
 const bcrypt = require('bcrypt');
 const Mailer = require('./node_emailer/Mailer.js');
 const nb_salt = 10;
 const crypt_salt = bcrypt.genSaltSync(nb_salt);
->>>>>>> main
-
 //SESSION
 app.use(session({
     store: new FileStore(fileStoreOptions),
