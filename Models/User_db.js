@@ -29,6 +29,9 @@ const UserCollection = new mongoose.Schema(
             type: Number,
             required: true
         },
+        toke_pwd_reseting_user:{
+            type: Number,
+        },
         role:{
             type: Number,
             default: 0
