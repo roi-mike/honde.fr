@@ -8,7 +8,8 @@ function ajax_register(form_type_view, password_user, conf_password_user){
         
       var reponce_login = JSON.parse(this.response);
       
-      console.log('reponce_login ERREUR  : ', reponce_login)
+      console.log('reponce_login ERREUR  : ', reponce_login);
+      
       if(reponce_login.redirection_account){
         window.location.href = reponce_login.redirection_account;
       }

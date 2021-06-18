@@ -56,8 +56,10 @@ app.use(
 app.use("/deconnected", deconnected);
 //app.use('/account', account_midd);
 
+
+//HOME PAGE
 app.get("/", (req, res) => {
-  console.log("/ 57 : ", req.session);
+  console.log("/ 62 SESSION : ", req.session);
   if (req.session.mail_user) {
     console.log("UNE SESSION");
     res.set("Content-Type", "text/html");
@@ -69,12 +71,9 @@ app.get("/", (req, res) => {
   }
 });
 
-app.get("/account", (req, res) => {
-  console.log("/account 62 : ", req.session);
-  res.render("account_view_component.ejs");
-});
-
+//PAGE CONNECTION
 app.get("/accounts/login", (req, res) => {
+  console.log("/accounts/login 75 SESSION : ", req.session);
   if (req.session.mail_user) {
     console.log("UNE SESSION");
     res.set("Content-Type", "text/html");
@@ -86,8 +85,9 @@ app.get("/accounts/login", (req, res) => {
   }
 });
 
+//PAGE REGISTER FOR NEW CUSTOMER
 app.get("/accounts/emailsignup", (req, res) => {
-  console.log("/accounts/emailsignup 71 : ", req.session);
+  console.log("/accounts/emailsignup 90 SESSION : ", req.session);
   if (req.session.mail_user) {
     console.log("UNE SESSION");
     res.set("Content-Type", "text/html");
@@ -99,19 +99,36 @@ app.get("/accounts/emailsignup", (req, res) => {
   }
 });
 
+//PAGE MESSAGE REGISTER IS GOOD CHECK MAIL FOR VALIDE TOKEN REGISTER
 app.get("/account/registerok/checkmail", (req, res) => {
-  console.log("/account/registerok/checkmail 76 : ", req.session);
-  res.render("check_mail_view_component.ejs");
+  console.log("/account/registerok/checkmail 104 SESSION : ", req.session);
+  res.render("check_mail_after_register_view_component.ejs");
 });
 
+//PAGE MESSAGE AFTER VALID TOKEN REGISTER
+app.get("/account/validationregistration/:toke_validation_user", (req, res) => {
+  console.log("req.session.mail_user 111 SESSION : ", req.session.mail_user);
+
+  res.render("validation_registration.ejs");
+});
+
+//PAGE SEND MAIL FOR CHANGE PASSE WORD
 app.get("/accounts/password/reset", (req, res, next) => {
-  console.log("/accounts/password/reset 81", req.session.mail_user);
+  console.log("/accounts/password/reset 81 SESSION :", req.session.mail_user);
   res.render("pwd_reset_view_component.ejs");
 });
 
+//PAGE MESSAGE CHECK MAIL FOR CONFIRME RESET PASS WORD
+app.get("/accounts/passwordreset/checkmail", (req, res, next) => {
+  console.log("/accounts/passwordreset/checkmail 123 SESSION : ", req.session.mail_user);
+  res.render("pwd_reset_after_view_compnent.ejs");
+});
+
+
+//PAGE FORM 2 FIELDS FOR RESET PASS WORD 
 app.get("/accounts/password/reset/:toke_pdw_reseting_user", (req, res) => {
   //console.log("PARAMETTRE", req.params);
-  console.log("REQ : 112 ", req.params);
+  console.log("/accounts/password/reset/:toke_pdw_reseting_user 131 SESSION : ", req.session.mail_user);
   req.session.toke_pdw_reseting_user = req.params.toke_pdw_reseting_user;
   console.log('SESSION : => ', req.session);
   User.findOne({ toke_pwd_reseting_user: req.params.toke_pdw_reseting_user })
@@ -130,20 +147,25 @@ app.get("/accounts/password/reset/:toke_pdw_reseting_user", (req, res) => {
     });
 });
 
-app.get("/account/validationregistration/:toke_validation_user", (req, res) => {
-  console.log("PARAMETTRE", req.params);
-  console.log("req.session.mail_user 87 : ", req.session.mail_user);
-
-  res.render("validation_registration.ejs");
-
-  //lol
+//PAGE MESSAGE CONFIRME RESET PASSWORD
+app.get("/accounts/passwordreset/congratulations", (req, res, next) => {
+  console.log("/accounts/passwordreset/congratulations 152 SESSION : ", req.session.mail_user);
+  res.render("pwd_reseting_after_view_compnent.ejs");
 });
 
-//AUTHENTICATE AJAX REQUEST
-app.get("/checkfield", async (req, res, next) => {
-
+//PAGE IF HE IS CONNECTED
+app.get("/account", (req, res) => {
+  console.log("/account 158 SESSION : ", req.session);
+  console.log("/ 57 : ", req.session);
+  if (req.session.mail_user) {
+    console.log("UNE SESSION");
+    res.render("account_view_component.ejs");
+  } else {
+    res.set("Content-Type", "text/html");
+    res.redirect("/");
+    return res.end();
+  }
 });
-
 
 //AUTHENTICATE AJAX REQUEST
 app.post("/checkfield", async (req, res, next) => {
@@ -392,8 +414,7 @@ app.post("/checkfield", async (req, res, next) => {
                 toke_pwd_reseting_user
               );
 
-              reponse_check["email_user"] =
-                "Vérifier votre boîte mail un mail vous à été envoyé";
+              reponse_check["redirection_account"] = "/accounts/passwordreset/checkmail";
               console.log("IL Y A EU U CHANGEMENT 357");
             }
           })
@@ -433,7 +454,7 @@ app.post("/checkfield", async (req, res, next) => {
         //const password_user = req.body.password_user;
         const password_user_crypt = bcrypt.hashSync(password_user, crypt_salt);
 
-        User.findOneAndUpdate( { toke_pwd_reseting_user : toke_pdw_reseting_user },{ password_user: password_user_crypt, toke_pwd_reseting_user: 0000 })
+        await User.findOneAndUpdate( { toke_pwd_reseting_user : toke_pdw_reseting_user },{ password_user: password_user_crypt, toke_pwd_reseting_user: 0000 })
           .then(async (result) => {
             if (result) {
                 
@@ -442,11 +463,9 @@ app.post("/checkfield", async (req, res, next) => {
               const mailer_reseting_password = new Mailer();
               //envoie du mail
               await mailer_reseting_password.send_mail_conf_reset_password(result.email_user,result.firstname_user);
-              console.log("IL Y A EU U CHANGEMENT");
 
-              //after register we redirect
-              reponse_check["conf_password_user"] =
-                "Votre mot de passe a bien été modifié ! ";
+              //after rest password we redirect
+              reponse_check["redirection_account"] = "/accounts/passwordreset/congratulations";
             }
           })
           .catch((erreur) => {
