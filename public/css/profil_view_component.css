@@ -26,21 +26,29 @@ body{
 }
 #img_personnage_authentification_img {
     border-radius: 50%;
-    width: 70%;
-    height: 70%;
+    width: 157px;
+    height: 157px;
     margin-left: 15px;
     cursor: pointer;
 }
-#form_user_container_form{
+#id_form_user_container_input{
+    cursor:pointer;
+    background-color: red;
     position: absolute;
+    transform: translate(7px);
+    width: 157px;
+    height: 157px;
+    border-radius: 50%;
     opacity: 1;
 }
-#input_form_user_container_form{
+#form_personnage_authentification_form{
     background-color: red;
-    width: 400px;
-}
-input[type=file]{
-    background-color: orange;
+    position: absolute;
+    transform: translate(7px);
+    width: 157px;
+    height: 157px;
+    border-radius: 50%;
+    opacity: 0;
 }
 #account_profil_user_container_div{
     width: 100%;

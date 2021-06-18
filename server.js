@@ -41,6 +41,7 @@ app.set("view engine", "ejs");
 app.use("/css", express.static("public/css"));
 app.use("/js", express.static("public/javascript"));
 app.use("/imgstatic", express.static("public/assets"));
+app.use("/avatar_user", express.static("imgs_videos_customers_posts/post_images_videos_customers"));
 
 //Middleware INCLUDE
 // const checkfield = require('./Middleware/checkfield');
@@ -56,7 +57,6 @@ app.use(
 );
 app.use("/deconnected", deconnected);
 //app.use('/account', account_midd);
-
 
 //HOME PAGE
 app.get("/", (req, res) => {
@@ -121,17 +121,22 @@ app.get("/accounts/password/reset", (req, res, next) => {
 
 //PAGE MESSAGE CHECK MAIL FOR CONFIRME RESET PASS WORD
 app.get("/accounts/passwordreset/checkmail", (req, res, next) => {
-  console.log("/accounts/passwordreset/checkmail 123 SESSION : ", req.session.mail_user);
+  console.log(
+    "/accounts/passwordreset/checkmail 123 SESSION : ",
+    req.session.mail_user
+  );
   res.render("pwd_reset_after_view_compnent.ejs");
 });
 
-
-//PAGE FORM 2 FIELDS FOR RESET PASS WORD 
+//PAGE FORM 2 FIELDS FOR RESET PASS WORD
 app.get("/accounts/password/reset/:toke_pdw_reseting_user", (req, res) => {
   //console.log("PARAMETTRE", req.params);
-  console.log("/accounts/password/reset/:toke_pdw_reseting_user 131 SESSION : ", req.session.mail_user);
+  console.log(
+    "/accounts/password/reset/:toke_pdw_reseting_user 131 SESSION : ",
+    req.session.mail_user
+  );
   req.session.toke_pdw_reseting_user = req.params.toke_pdw_reseting_user;
-  console.log('SESSION : => ', req.session);
+  console.log("SESSION : => ", req.session);
   User.findOne({ toke_pwd_reseting_user: req.params.toke_pdw_reseting_user })
     .exec()
     .then((result) => {
@@ -150,7 +155,10 @@ app.get("/accounts/password/reset/:toke_pdw_reseting_user", (req, res) => {
 
 //PAGE MESSAGE CONFIRME RESET PASSWORD
 app.get("/accounts/passwordreset/congratulations", (req, res, next) => {
-  console.log("/accounts/passwordreset/congratulations 152 SESSION : ", req.session.mail_user);
+  console.log(
+    "/accounts/passwordreset/congratulations 152 SESSION : ",
+    req.session.mail_user
+  );
   res.render("pwd_reseting_after_view_compnent.ejs");
 });
 
@@ -160,7 +168,7 @@ app.get("/account", (req, res) => {
   console.log("/ 57 : ", req.session);
   if (req.session.mail_user) {
     console.log("UNE SESSION");
-    res.render("account_view_component.ejs", {user_session:req.session});
+    res.render("account_view_component.ejs", { user_session: req.session });
   } else {
     res.set("Content-Type", "text/html");
     res.redirect("/");
@@ -173,7 +181,7 @@ app.get("/account/:profil_id", (req, res) => {
   console.log("/ 57 : ", req.session);
   if (req.params.profil_id === req.session.id_user) {
     console.log("UNE SESSION");
-    res.render("profil_view_component.ejs", {user_session:req.session});
+    res.render("profil_view_component.ejs", { user_session: req.session });
   } else {
     res.set("Content-Type", "text/html");
     res.redirect("/account");
@@ -326,14 +334,14 @@ app.post("/checkfield", async (req, res, next) => {
                         await User.findOne({ email_user: email_user })
                           .exec()
                           .then(async (find_user) => {
+                            //SI C EST LA 1ER FOIS QU IL SE CONNECT EN CREE UNE SESSION
                             if (find_user) {
                               console.log("FINI FINI", find_user);
                               req.session.id_user = find_user._id;
                               req.session.mail_user = find_user.email_user;
-                              req.session.firstname_user =
-                                find_user.firstname_user;
-                              req.session.lastname_user =
-                                find_user.lastname_user;
+                              req.session.firstname_user = find_user.firstname_user;
+                              req.session.lastname_user = find_user.lastname_user;
+                              req.session.avatar_user = find_user.avatar_user;
                               req.session.createdAt = find_user.createdAt;
 
                               console.log("req.session 244 ", req.session);
@@ -361,11 +369,13 @@ app.post("/checkfield", async (req, res, next) => {
                     .exec()
                     .then(async (find_user) => {
                       if (find_user) {
+                        //SI C EST LA 2EME FOIS OU PLUS QU IL SE CONNECT EN CREE UNE SESSION
                         console.log("FINI FINI ROLE 2", find_user);
                         req.session.id_user = find_user._id;
                         req.session.mail_user = find_user.email_user;
                         req.session.firstname_user = find_user.firstname_user;
                         req.session.lastname_user = find_user.lastname_user;
+                        req.session.avatar_user = find_user.avatar_user;
                         req.session.createdAt = find_user.createdAt;
 
                         console.log(" req.session 326 ", req.session);
@@ -428,7 +438,8 @@ app.post("/checkfield", async (req, res, next) => {
                 toke_pwd_reseting_user
               );
 
-              reponse_check["redirection_account"] = "/accounts/passwordreset/checkmail";
+              reponse_check["redirection_account"] =
+                "/accounts/passwordreset/checkmail";
               console.log("IL Y A EU U CHANGEMENT 357");
             }
           })
@@ -464,22 +475,28 @@ app.post("/checkfield", async (req, res, next) => {
         //INSCRIPTION A LA BASE DE DONNEE
         const toke_pdw_reseting_user = req.session.toke_pdw_reseting_user;
 
-        console.log('toke_pdw_reseting_user 430 => ', toke_pdw_reseting_user);
+        console.log("toke_pdw_reseting_user 430 => ", toke_pdw_reseting_user);
         //const password_user = req.body.password_user;
         const password_user_crypt = bcrypt.hashSync(password_user, crypt_salt);
 
-        await User.findOneAndUpdate( { toke_pwd_reseting_user : toke_pdw_reseting_user },{ password_user: password_user_crypt, toke_pwd_reseting_user: 0000 })
+        await User.findOneAndUpdate(
+          { toke_pwd_reseting_user: toke_pdw_reseting_user },
+          { password_user: password_user_crypt, toke_pwd_reseting_user: 0000 }
+        )
           .then(async (result) => {
             if (result) {
-                
               delete req.session.toke_pdw_reseting_user;
               //ENVOIE DU MAIL DE VALIDATION POUR L INSCRIPTION
               const mailer_reseting_password = new Mailer();
               //envoie du mail
-              await mailer_reseting_password.send_mail_conf_reset_password(result.email_user,result.firstname_user);
+              await mailer_reseting_password.send_mail_conf_reset_password(
+                result.email_user,
+                result.firstname_user
+              );
 
               //after rest password we redirect
-              reponse_check["redirection_account"] = "/accounts/passwordreset/congratulations";
+              reponse_check["redirection_account"] =
+                "/accounts/passwordreset/congratulations";
             }
           })
           .catch((erreur) => {

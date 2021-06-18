@@ -25,6 +25,10 @@ const UserCollection = new mongoose.Schema(
             min: 6,
             required: true
         },
+        avatar_user:{
+            type: String,
+            default: "default_avatar.png"
+        },
         toke_valid_user:{
             type: Number,
             required: true

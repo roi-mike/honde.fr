@@ -1,4 +1,6 @@
-const img_personnage_authentification_img = document.getElementById('img_personnage_authentification_img');
+let form = document.getElementById('form_personnage_authentification_form');
+
+let img_input = document.getElementById('img_personnage_authentification_img');
 
 function ajax_register(form_type_view, email_user, firstname_user, lastname_user, password_user, conf_password_user){
 
@@ -17,10 +19,11 @@ function ajax_register(form_type_view, email_user, firstname_user, lastname_user
     //
   }
 
+console.log('PROFIL')
 
-
-img_personnage_authentification_img.addEventListener('click', function (param) {
-    console.log('CLIQUE SUR PHOTO');
-
-
+img_input.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    console.log('valider');
 })
+
+console.log('FIN')
