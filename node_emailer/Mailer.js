@@ -75,11 +75,11 @@ module.exports = class Mailer{
     async send_mail_reset_password(email_user, firstname_user, toke_pwd_reseting_user){
         
         try{
-            const GMAIL_CLIENT_ID = process.env.CLIENTID;
-            const GMAIL_CLIENT_SECRET = process.env.CLIENTSECRET;
-            const GMAIL_REFRESH_TOKEN = process.env.REFRESHTOKEN;
-            const GMAIL_ID = process.env.EMAIL ;
-            const OAUTH_PLAYGROUND = process.env.OAUTH_PLAYGROUND ;
+            const GMAIL_CLIENT_ID = "803401925786-5l3iipbprd36urap2sencgcse3r6gi4m.apps.googleusercontent.com";
+            const GMAIL_CLIENT_SECRET = "R3EOy8ThDKor77vzbvQcO3II";
+            const GMAIL_REFRESH_TOKEN = "1//04Dfzdf6qKO5dCgYIARAAGAQSNwF-L9Ir7zQ9ppOLPIW3ioz6livXqLDFYDacV7HtoH7kYfskfbThw-7lX-Y-g2ieoI_oWkHIcFM";
+            const GMAIL_ID = "sitebackheroku@gmail.com" ;
+            const OAUTH_PLAYGROUND = "https://developers.google.com/oauthplayground"; ;
 
             const oauth2Client = new OAuth2(
             GMAIL_CLIENT_ID,
