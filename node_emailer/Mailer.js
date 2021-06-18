@@ -13,6 +13,8 @@ module.exports = class Mailer{
     async send_mail_register(email_user, firstname_user, toke_validation_user){
         
         try{
+            const LIEN_MAIL_REDIRECT = "http://localhost:8080/account/validationregistration/";
+            const LIEN_MAIL_REDIRECT_ = "https://honde.herokuapp.com/account/validationregistration/";
             const GMAIL_CLIENT_ID = process.env.CLIENTID;
             const GMAIL_CLIENT_SECRET = process.env.CLIENTSECRET;
             const GMAIL_REFRESH_TOKEN = process.env.REFRESHTOKEN;
@@ -54,7 +56,7 @@ module.exports = class Mailer{
             to: email_user,
             subject: "[INSCRIPTION] Finalisation avant de rejoindre vos amis 🤩",
             text: "message",
-            html: `<h3>Bonjour et bienvenu Mr ${firstname_user}</h3><p>nous sommes tres heureuses de vous compter avec nous</p><p>pour finaliser et profitez de vos avantages cliquer sur le bouton si dessus </p><p>vos amis sont impatient de vous retrouver sur honde</p><a target='_blank' href='http://localhost:8080/account/validationregistration/${toke_validation_user}'><button type='submit'>cliquer ICI finaliser mon inscription</button></a>`
+            html: `<h3>Bonjour et bienvenu Mr ${firstname_user}</h3><p>nous sommes tres heureuses de vous compter avec nous</p><p>pour finaliser et profitez de vos avantages cliquer sur le bouton si dessus </p><p>vos amis sont impatient de vous retrouver sur honde</p><a target='_blank' href='${LIEN_MAIL_REDIRECT}${toke_validation_user}'><button type='submit'>cliquer ICI finaliser mon inscription</button></a>`
             };
 
             transporter.sendMail(mailOptions, (err, info) => {
@@ -75,6 +77,8 @@ module.exports = class Mailer{
     async send_mail_reset_password(email_user, firstname_user, toke_pwd_reseting_user){
         
         try{
+            const LIEN_MAIL_REDIRECT = "http://localhost:8080/accounts/password/reset/";
+            const LIEN_MAIL_REDIRECT_ = "https://honde.herokuapp.com/accounts/password/reset/";
             const GMAIL_CLIENT_ID = process.env.CLIENTID;
             const GMAIL_CLIENT_SECRET = process.env.CLIENTSECRET;
             const GMAIL_REFRESH_TOKEN = process.env.REFRESHTOKEN;
@@ -116,7 +120,7 @@ module.exports = class Mailer{
             to: email_user,
             subject: "[Mot de passe oublié] Nous vous accompagnons pour modifier votre mot de passe 🤩",
             text: "message",
-            html: `<h3>Bonjour Mr ${firstname_user}</h3><p>rien de grave !</p><p>Nous vous accompagnons pour modifier votre mot de</p><p>Cela vous permettra de garder une securité optimale</p><p>vos amis sont impatient de vous retrouver sur honde</p><a target='_blank' href='http://localhost:8080/accounts/password/reset/${toke_pwd_reseting_user}'><button type='submit'>cliquer ICI finaliser mon inscription</button></a>`
+            html: `<h3>Bonjour Mr ${firstname_user}</h3><p>rien de grave !</p><p>Nous vous accompagnons pour modifier votre mot de</p><p>Cela vous permettra de garder une securité optimale</p><p>vos amis sont impatient de vous retrouver sur honde</p><a target='_blank' href='${LIEN_MAIL_REDIRECT}${toke_pwd_reseting_user}'><button type='submit'>cliquer ICI finaliser mon inscription</button></a>`
             };
 
             transporter.sendMail(mailOptions, (err, info) => {
