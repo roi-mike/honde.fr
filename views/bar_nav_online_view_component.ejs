@@ -63,6 +63,7 @@
                 <span id="id_even_authentification_div">Nabila</span> a mentionné
                 votre nom dans un commentaire : @roimike merci mon pote.
                 <time id="when_like_authentification_time">1 sem</time>
+                <%= user_session.mail_user%>
               </div>
               <img
                 id="img_mentinonnee_like_authentification_a"
@@ -82,10 +83,12 @@
         <div id="img_personne_element_authentification_div">
           <!--PROFIL USER ACCOUNT-->
           <div class="user_account_authentification_div">
-            <div class="icon_user_account_authentification_div">
-              <i class="far fa-user-circle"></i>
-            </div>
-            <div class="title_user_account_authentification_div">Profil</div>
+              <div class="icon_user_account_authentification_div">
+                <i class="far fa-user-circle"></i>
+              </div>
+            <a href="/account/<%= user_session.id_user%>">
+              <div class="title_user_account_authentification_div">Profil</div>
+            </a>
           </div>
           <!--SAVE USER ACCOUNT-->
           <div class="user_account_authentification_div">

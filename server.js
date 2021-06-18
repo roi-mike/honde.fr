@@ -9,6 +9,7 @@ const bcrypt = require("bcrypt");
 const Mailer = require("./node_emailer/Mailer.js");
 const nb_salt = 10;
 const crypt_salt = bcrypt.genSaltSync(nb_salt);
+
 //SESSION
 app.use(
   session({
@@ -159,10 +160,23 @@ app.get("/account", (req, res) => {
   console.log("/ 57 : ", req.session);
   if (req.session.mail_user) {
     console.log("UNE SESSION");
-    res.render("account_view_component.ejs");
+    res.render("account_view_component.ejs", {user_session:req.session});
   } else {
     res.set("Content-Type", "text/html");
     res.redirect("/");
+    return res.end();
+  }
+});
+
+app.get("/account/:profil_id", (req, res) => {
+  console.log("/account 158 SESSION : ", req.session);
+  console.log("/ 57 : ", req.session);
+  if (req.params.profil_id === req.session.id_user) {
+    console.log("UNE SESSION");
+    res.render("profil_view_component.ejs", {user_session:req.session});
+  } else {
+    res.set("Content-Type", "text/html");
+    res.redirect("/account");
     return res.end();
   }
 });
@@ -513,6 +527,12 @@ app.post("/checkfield", async (req, res, next) => {
     res.status(200).json(reponse_check);
   }
 });
+
+//UPDATE VIDEO AND IMG AJAX REQUEST
+app.post("/updatevideoandimage", (req, res) => {
+  console.log("UPDATE IMG AND VIDEO");
+});
+
 //DECONNECTÉ AJAX REQUEST
 app.get("/deconnected", (req, res) => {
   req.session.destroy();

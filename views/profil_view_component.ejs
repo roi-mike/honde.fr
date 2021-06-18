@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/barre_nav_view_component.css" />
+    <link
+      rel="stylesheet"
+      href="/css/barre_nav_not_online_view_component.css"
+    />
+    <link rel="stylesheet" href="/css/profil_view_component.css" />
+  </head>
+  <body>
+    <% if(true){ %> <%- include('bar_nav_online_view_component.ejs')%>
+    <%}else{%> <%- include('bar_nav_not_online_view_component.ejs')%> <%}%>
+    <div id="container_profil_div">
+      <div id="profil_user_container_div">
+        <div id="img_user_container_div">
+          <!-- <img id="img_personnage_authentification_img" src="/imgstatic/boo.jpg" alt="" srcset="" /> -->
+          <form id="form_user_container_form" >
+              <button id="input_form_user_container_form">Choisir le fichier</button>
+              <input type="file">
+          </form>
+        </div>
+        <div id="account_profil_user_container_div">
+          <div id="info_profil_user_container_div">
+            <div id="firsname_profil_user_container_div">
+              <%= user_session.lastname_user%>
+            </div>
+            <div id="update_profil_user_container_div">Modifier Profil</div>
+          </div>
+          <div id="follow_profil_user_container_div">
+            <div id="publications_profil_user_container_div">
+              9 publications
+            </div>
+            <div id="subscribers_profil_user_container_div">28 abonnés</div>
+            <div id="subscriptions_profil_user_container_div">
+              120 abonnements
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--MENU PROFIL-->
+      <div id="menu_profil_user_container_div">
+        <div>PUBLICATIONS</div>
+        <div>ENREGISTREMENTS</div>
+      </div>
+
+    
+      <!--IMAGE PROFIL-->
+      <div id="publications_account_profil_user_container_div">
+        <div id="img_publications_account_profil_user_container_div" class="article_publications_account_profil_user_container_div">
+            <img src="" alt="" srcset="">
+        </div>
+        <div id="video_publications_account_profil_user_container_div" class="article_publications_account_profil_user_container_div">
+            <img src="" alt="" srcset="">
+        </div>
+      </div>
+
+    </div>
+    <script src="/js/Ajax_profil_view_component.js"></script>
+  </body>
+</html>
