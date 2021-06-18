@@ -5,12 +5,6 @@ const nodemailer = require("nodemailer");
 const { google } = require('googleapis');
 const { OAuth2 } = google.auth;
 
-let GMAIL_CLIENT_ID = "803401925786-5l3iipbprd36urap2sencgcse3r6gi4m.apps.googleusercontent.com";
-let GMAIL_CLIENT_SECRET = "R3EOy8ThDKor77vzbvQcO3II";
-let GMAIL_REFRESH_TOKEN = "1//04Dfzdf6qKO5dCgYIARAAGAQSNwF-L9Ir7zQ9ppOLPIW3ioz6livXqLDFYDacV7HtoH7kYfskfbThw-7lX-Y-g2ieoI_oWkHIcFM";
-let GMAIL_ID = "sitebackheroku@gmail.com" ;
-let OAUTH_PLAYGROUND = "https://developers.google.com/oauthplayground";          
-
 module.exports = class Mailer{
 
     constructor(){}
@@ -19,6 +13,11 @@ module.exports = class Mailer{
     async send_mail_register(email_user, firstname_user, toke_validation_user){
         
         try{
+            const GMAIL_CLIENT_ID = process.env.CLIENTID;
+            const GMAIL_CLIENT_SECRET = process.env.CLIENTSECRET;
+            const GMAIL_REFRESH_TOKEN = process.env.REFRESHTOKEN;
+            const GMAIL_ID = process.env.EMAIL ;
+            const OAUTH_PLAYGROUND = process.env.OAUTH_PLAYGROUND ;
 
             const oauth2Client = new OAuth2(
             GMAIL_CLIENT_ID,
@@ -76,7 +75,12 @@ module.exports = class Mailer{
     async send_mail_reset_password(email_user, firstname_user, toke_pwd_reseting_user){
         
         try{
-            
+            const GMAIL_CLIENT_ID = process.env.CLIENTID;
+            const GMAIL_CLIENT_SECRET = process.env.CLIENTSECRET;
+            const GMAIL_REFRESH_TOKEN = process.env.REFRESHTOKEN;
+            const GMAIL_ID = process.env.EMAIL ;
+            const OAUTH_PLAYGROUND = process.env.OAUTH_PLAYGROUND ;
+
             const oauth2Client = new OAuth2(
             GMAIL_CLIENT_ID,
             GMAIL_CLIENT_SECRET,
@@ -132,6 +136,11 @@ module.exports = class Mailer{
     async send_mail_conf_reset_password(email_user, firstname_user){
         
         try{
+            const GMAIL_CLIENT_ID = process.env.CLIENTID;
+            const GMAIL_CLIENT_SECRET = process.env.CLIENTSECRET;
+            const GMAIL_REFRESH_TOKEN = process.env.REFRESHTOKEN;
+            const GMAIL_ID = process.env.EMAIL ;
+            const OAUTH_PLAYGROUND = process.env.OAUTH_PLAYGROUND ;
 
             const oauth2Client = new OAuth2(
             GMAIL_CLIENT_ID,
