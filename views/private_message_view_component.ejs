@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>private message</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/barre_nav_view_component.css" />
+    <link
+      rel="stylesheet"
+      href="/css/barre_nav_not_online_view_component.css"
+    />
+    <link rel="stylesheet" href="/css/private_message_view_component.css" />
+</head>
+<body>
+    <% if(true){ %> <%- include('bar_nav_online_view_component.ejs')%>
+    <%}else{%> <%- include('bar_nav_not_online_view_component.ejs')%> <%}%>
+    <div id="private_message_container_div">
+      <div id="middle_private_message_container_div">
+        <div id="friends_speak_private_message_container_div">
+          <div id="seach_friends_speak_private_message_container_div">
+                <form id="form_seach_friends_speak_private_message_container_fom" action="" method="post">
+                  <input id="bar_seach_friends_speak_private_message_container_inp" placeholder="champ de recherche d'amis" type="text">
+                </form>  
+          </div>
+          <div id="list_friends_speak_private_message_container_div">
+            <div id="status_friends_speak_private_message_container_div">
+              <div id="img_user_container_div">
+                <img name="img_personnage_authentification_img" id="img_personnage_authentification_img" src="/avatar_user/<%=user_session.avatar_user%>" alt="" srcset="" />
+                <span id="inline_friends_speak_private_message_container_div"></span>
+              </div>
+              <div id="info_friends_speak_private_message_container_div">
+                <div>will.nazario</div>
+                <div>En ligne</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="discussion_private_message_container_div">
+          <div>
+            <span>will.nazario : </span>
+            <span>Lorem ipsum dolor sit amet</span>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,96 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    width: 100%;
+    height: 100vh;
+}
+#private_message_container_div{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+#middle_private_message_container_div{
+    width: 70%;
+    height: 100%;
+    margin-top: 90px;
+    display: flex;
+    flex-direction: row;
+}
+#friends_speak_private_message_container_div{
+    width: 30%;
+    height: 100%;
+}
+
+#seach_friends_speak_private_message_container_div{
+    width: 100%;
+    height: 30px;
+}
+
+#form_seach_friends_speak_private_message_container_fom{
+    width: 100%;
+    height: 100%;
+}
+#bar_seach_friends_speak_private_message_container_inp{
+    width:98%;
+    height: 26px;
+    border: hidden;
+}
+#bar_seach_friends_speak_private_message_container_inp:focus{
+    outline: 0;
+}
+#bar_seach_friends_speak_private_message_container_inp:active{
+    border: 2px solid rgb(0, 195, 255);
+}
+
+#list_friends_speak_private_message_container_div{
+    overflow: scroll;
+    width: 100%;
+    height: 100%;
+}
+#status_friends_speak_private_message_container_div{
+    display: flex;
+    flex-direction: row;    
+}
+#img_user_container_div{
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#img_personnage_authentification_img {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+#inline_friends_speak_private_message_container_div{
+    content: ' ';
+    position: relative;
+    top: 20px;
+    right: 20px;
+    border: 2px solid white;
+    background-color: yellowgreen;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
+#info_friends_speak_private_message_container_div{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+
+/*MESSAGE PRIVÉ*/
+#discussion_private_message_container_div{
+    width: 70%;
+    height: 100%;
+    background-color: beige;
+}

@@ -177,6 +177,17 @@ app.get("/account", (req, res) => {
   }
 });
 
+app.get("/direct/inbox/:profil_id", (req, res) => {
+  console.log("/direct/inbox/:profil_id 181 SESSION : ", req.session);
+  if (req.params.profil_id === req.session.id_user) {
+    res.render("private_message_view_component.ejs", { user_session: req.session });
+  } else {
+    res.set("Content-Type", "text/html");
+    res.redirect("/account");
+    return res.end();
+  }
+});
+
 app.get("/account/:profil_id", (req, res) => {
   console.log("/account 158 SESSION : ", req.session);
   console.log("/ 57 : ", req.session);
