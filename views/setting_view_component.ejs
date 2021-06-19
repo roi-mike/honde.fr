@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/barre_nav_view_component.css" />
+    <link
+      rel="stylesheet"
+      href="/css/barre_nav_not_online_view_component.css"
+    />
+    <link rel="stylesheet" href="/css/setting_view_component.css" />
+  </head>
+  <body>
+    <% if(true){ %> <%- include('bar_nav_online_view_component.ejs')%>
+    <%}else{%> <%- include('bar_nav_not_online_view_component.ejs')%> <%}%>
+    <div id="setting_contenair_div">
+      <div id="middle_setting_contenair_div">
+
+        <div id="info_modif_middle_setting_contenair_div">
+          <div id="avatar_middle_setting_contenair_div">
+            <img
+              id="avatar_middle_setting_contenair_img"
+              src="/avatar_user/<%=user_session.avatar_user%>"
+              alt=""
+            />
+          </div>
+          <div id="mpd_middle_setting_contenair_div">Mot de passe</div>
+        </div>
+
+
+        <div id="which_modif_middle_setting_contenair_div">
+          <div id="presentation_profil_user_setting_contenair_div">
+            <div id="id_presentation_profil_user_setting_contenair_div">
+              <span><%=user_session.firstname_user%></span>
+              <span><%=user_session.lastname_user %></span>
+            </div>
+            <div id="reset_password_profil_user_setting_contenair_div">Modifier la photo de profil
+            </div>
+            <input type="file">
+          </div>
+          <div id="reset_password_setting_contenair_div">
+            <form id="from_setting_contenair_div" action="" method="post">
+              <label for="password_user">Votre mot de passe actuellement</label>
+              <input placeholder="Votre mot de passe" id="password_user" name="password_user" type="text" />
+
+              <br>
+              <label for="conf_password_user"
+                >Confirmer votre mot de passe</label
+              >
+              <input placeholder="confirmé votre mot de passe" id="conf_password_user" name="conf_password_user" type="text" />
+
+              <br>
+              <input type="submit" name="button_user" id="button_user" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

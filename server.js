@@ -190,6 +190,18 @@ app.get("/account/:profil_id", (req, res) => {
   }
 });
 
+app.get("/accounts/edit/:profil_id", (req, res) => {
+  console.log("/accounts/edit/:profil_id 198 SESSION : ", req.session);
+  if (req.params.profil_id === req.session.id_user) {
+    console.log("UNE SESSION");
+    res.render("setting_view_component.ejs", { user_session: req.session });
+  } else {
+    res.set("Content-Type", "text/html");
+    res.redirect("/account");
+    return res.end();
+  }
+});
+
 //AUTHENTICATE AJAX REQUEST
 app.post("/checkfield", async (req, res, next) => {
   //let User = require('./Models/User_db');
