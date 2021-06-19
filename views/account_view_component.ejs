@@ -1,115 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="/css/barre_nav_view_component.css">
-    <link rel="stylesheet" href="/css/barre_nav_not_online_view_component.css">
-    <link rel="stylesheet" href="/css/account_view_component.css">
-</head>
-<body>
-    <% if(true){ %>
-        <%- include('bar_nav_online_view_component.ejs')%>
-    <%}else{%>
-        <%- include('bar_nav_not_online_view_component.ejs')%>
-    <%}%>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/barre_nav_view_component.css" />
+    <link
+      rel="stylesheet"
+      href="/css/barre_nav_not_online_view_component.css"
+    />
+    <link rel="stylesheet" href="/css/account_view_component.css" />
+  </head>
+  <body>
+    <% if(true){ %> <%- include('bar_nav_online_view_component.ejs')%>
+    <%}else{%> <%- include('bar_nav_not_online_view_component.ejs')%> <%}%>
     <div id="body_account_container_div">
-        <!--MUR POSTÉ-->
-        <div id="sout_account_container_div">
-            <div id="sout_post_account_container_div">
-                <!--POSTÉ-->
-                <div id="post_img_account_container_div">
-                    <!--HEAR POST-->
-                    <div id="head_post_account_container_div">
-                        <div id="head_img_post_account_container_div">
-                            <img
-                            id="avatar_profil_post_authentification_img"
-                            src="/avatar_user/<%=user_session.avatar_user%>"
-                            alt=""
-                            />
-                        </div>
-                        <div id="desk_head_post_account_container_div">
-                            <span id="who_post_account_container_span">ID CLIENT HIDE</span>
-                            <div id="firstname_post_account_container_div">morgandawson__</div>
-                            <div id="local_post_account_container_div">Providenciales, Turks And Caicos Islands</div>
-                        </div>
-                        <div id="menu_head_post_account_container_div">
-                            <i class="fas fa-ellipsis-h"></i>
-                        </div>
-                    </div>
-                    <!--IMAGE POSTE-->
-                    <div id="img_post_hear_account_container_div">
-                        <img id="img_post_hear_account_container_img" src="post_img_user/morgandawson_.jpg" alt="" srcset="">
-                    </div>
-                    <!--FOLOW POST-->
-                    <div>
-                        <div>
-                            <div> <i
-                                id="fa-heart-white"
-                                class="far fa-heart click-heart"
-                              ></i></div>
-                            <div><i class="far fa-comment"></i></div>
-                            <div><i class="far fa-paper-plane"></i></div>
-                        </div>
-                        <div></div>
-                        <div>
-                            <div><i class="far fa-bookmark"></i></div>
-                        </div>
-                    </div>
-                    <!--MESSAGES POST-->
+      <!--MUR POSTÉ-->
+      <div id="sout_account_container_div">
+        <div id="sout_post_account_container_div">
+          <!--POSTÉ-->
+          <div id="post_img_account_container_div">
+            <!--HEAR POST-->
+            <div id="head_post_account_container_div">
+              <div id="head_img_post_account_container_div">
+                <img
+                  id="avatar_profil_post_authentification_img"
+                  src="/avatar_user/<%=user_session.avatar_user%>"
+                  alt=""
+                />
+              </div>
+              <div id="desk_head_post_account_container_div">
+                <span id="who_post_account_container_span">ID CLIENT HIDE</span>
+                <div id="firstname_post_account_container_div">
+                  morgandawson__
+                </div>
+                <div id="local_post_account_container_div">
+                  Providenciales, Turks And Caicos Islands
+                </div>
+              </div>
+              <div id="menu_head_post_account_container_div">
+                <i class="fas fa-ellipsis-h"></i>
+              </div>
+            </div>
+            <!--IMAGE POSTE-->
+            <div id="img_post_hear_account_container_div">
+              <img
+                id="img_post_hear_account_container_img"
+                src="post_img_user/morgandawson_.jpg"
+                alt=""
+                srcset=""
+              />
+            </div>
 
-                    <!--COMMENTE POST-->
+            <!--FOLOW POST-->
+            <div id="follow_friend_account_container_div">
+              <div id="kind_follow_friend_account_container_div">
+                <div id="heart_kind_follow_friend_account_container_div">
+                  <i id="fa-heart-white" class="far fa-heart click-heart"></i>
                 </div>
+                <div id="comment_kind_follow_friend_account_container_div">
+                  <i class="far fa-comment"></i>
+                </div>
+                <div id="message_kind_follow_friend_account_container_div">
+                  <i class="far fa-paper-plane"></i>
+                </div>
+              </div>
+              <div id="empty_kind_follow_friend_account_container_div"></div>
+              <div id="save_kind_follow_friend_account_container_div">
+                <div><i class="far fa-bookmark"></i></div>
+              </div>
             </div>
-        </div>
 
-        <!--USER PROFIL ET SUGGESTIONS-->
-        <div id="user_propo_account_container_div">
-            <div id="info_user_account_container_div">
-                <div id="avatar_user_account_container_div">
-                    <img
-                    id="avatar_profil_authentification_a"
-                    src="/avatar_user/<%=user_session.avatar_user%>"
-                    alt=""
-                    />
-                </div>
-                <div id="desk_account_container_div">
-                    <div>Bonjour <%=user_session.lastname_user%></div>
-                    <div>Connectée</div>
-                </div>
-                <div id="access_account_container_div">
-                    Basculer
-                </div>
+            <!--NB LIKE-->
+            <div id="info_like_friend_account_container_div">
+                <span id="nb_like_friend_account_container_div">16 483</span> autres personnes
             </div>
-            <div id="sugg_user_account_container_div">
-                <span>Suggestions pour vous</span>
+            <!--MESSAGES POST-->
+
+            <div id="msgs_post_friends_account_container_div">
+                <span id="firstname_msg_post_friend_account_container_div">theebasketballconnect</span> <span id="msg_post_friend_account_container_div">I don't know how you vegans do it 🥺</span>
             </div>
-            <div>
-                <div id="info_user_account_container_div">
-                    <div id="avatar_user_account_container_div">
-                        <img
-                        id="img_personnage_authentification_a"
-                        src="/avatar_user/<%=user_session.avatar_user%>"
-                        alt=""
-                        />
-                    </div>
-                    <div id="desk_account_container_div">
-                        <div>moneyemaz</div>
-                        <div>Débute sur Honde</div>
-                    </div>
-                    <div id="access_account_container_div">
-                       S'abonner
-                    </div>
+            <!--COMMENTE POST-->
+            <div id="comment_msg_post_friend_account_container_div">
+                <dir id="icon_msg_post_friend_account_container_div"><i class="far fa-smile-beam"></i></dir>
+                <div id="form_comment_msg_post_friend_account_container_div">
+                    <form id="form_comment_friend_account_container_div" action="" method="post">
+                        <label for="comment_message_post"></label>
+                        <input id="comment_message_post" name="comment_message_post" placeholder="Ajouter un commantaire" type="text">
+                        <input id="send_message_btn" type="button" value="Envoyer">
+                    </form>
                 </div>
             </div>
-            <div id="info_relat_dev_account_container_div">
-                © 2021 HONDE PAR MABOZA HONDI SAMUEL
-            </div>
+          </div>
         </div>
+      </div>
+
+      <!--USER PROFIL ET SUGGESTIONS-->
+      <div id="user_propo_account_container_div">
+        <div id="info_user_account_container_div">
+          <div id="avatar_user_account_container_div">
+            <img
+              id="avatar_profil_authentification_a"
+              src="/avatar_user/<%=user_session.avatar_user%>"
+              alt=""
+            />
+          </div>
+          <div id="desk_account_container_div">
+            <div>Bonjour <%=user_session.lastname_user%></div>
+            <div>Connectée</div>
+          </div>
+          <div id="access_account_container_div">Basculer</div>
+        </div>
+        <div id="sugg_user_account_container_div">
+          <span>Suggestions pour vous</span>
+        </div>
+        <div>
+          <div id="info_user_account_container_div">
+            <div id="avatar_user_account_container_div">
+              <img
+                id="img_personnage_authentification_a"
+                src="/avatar_user/<%=user_session.avatar_user%>"
+                alt=""
+              />
+            </div>
+            <div id="desk_account_container_div">
+              <div>moneyemaz</div>
+              <div>Débute sur Honde</div>
+            </div>
+            <div id="access_account_container_div">S'abonner</div>
+          </div>
+        </div>
+        <div id="info_relat_dev_account_container_div">
+          © 2021 HONDE PAR MABOZA HONDI SAMUEL
+        </div>
+      </div>
     </div>
     <script src="/js/Ajax_account_view_component.js"></script>
-</body>
+  </body>
 </html>
