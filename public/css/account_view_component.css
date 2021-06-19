@@ -1,0 +1,122 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    width: 100%;
+}
+#body_account_container_div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#sout_account_container_div{
+    width: 590px;
+    height: 4500px;
+    margin-top: 54px;
+    margin-right: 330px;
+}
+
+/*1 MUR POSTÉ*/
+
+#sout_post_account_container_div{
+    width: 100%;
+    height: 50%;
+    margin-top: 80px;
+}
+
+#post_img_account_container_div{
+    width: 100%;
+    height: 850px;
+}
+#head_post_account_container_div{
+    width: 100%;
+    height: 60px;
+    display: flex;
+}
+#head_img_post_account_container_div{
+    width: 18%;
+    height: 100%;
+    display: flex;
+}
+
+#avatar_profil_post_authentification_img{
+    width: 90%;
+    height: 90%;
+}
+#desk_head_post_account_container_div{
+    width: 70%;
+}
+
+#menu_head_post_account_container_div{
+    display: flex;
+    align-items: center;
+}
+
+/*IMAGE POSTE*/
+
+#img_post_hear_account_container_div{
+    width: 100%;
+    height: 100%;
+}
+
+#img_post_hear_account_container_img{
+    width: 100%;
+    height: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*2 USER PROFIL ET SUGGESTIONS*/
+#user_propo_account_container_div{
+    position: fixed;
+    bottom: 0;
+    width: 440px;
+    height: 300px;
+    margin-left: 700px;
+}
+#avatar_profil_authentification_a{
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    margin-left: 15px;
+}
+#info_user_account_container_div{
+    display: flex;
+    width: 100%;
+}
+#avatar_user_account_container_div{
+    width: 18%;
+}
+#desk_account_container_div{
+    width: 65% ;
+}
+#access_account_container_div{
+    display: flex;
+    align-items: center;
+    width: 20%;
+}
+#sugg_user_account_container_div{
+    color: rgb(180, 177, 177);
+    font-size: 20px;
+}
+#sugg_user_account_container_div span{
+    margin-left: 30px;
+}
+#info_relat_dev_account_container_div{
+    position: absolute;
+    bottom: 0;
+    color: rgb(180, 177, 177);
+    font-size: 14px;
+}

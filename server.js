@@ -41,7 +41,8 @@ app.set("view engine", "ejs");
 app.use("/css", express.static("public/css"));
 app.use("/js", express.static("public/javascript"));
 app.use("/imgstatic", express.static("public/assets"));
-app.use("/avatar_user", express.static("imgs_videos_customers_posts/post_images_videos_customers"));
+app.use("/avatar_user", express.static("imgs_videos_customers_posts/post_profil_avatar_customers"));
+app.use("/post_img_user", express.static("imgs_videos_customers_posts/post_images_videos_customers"));
 
 //Middleware INCLUDE
 // const checkfield = require('./Middleware/checkfield');
