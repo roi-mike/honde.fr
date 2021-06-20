@@ -64,7 +64,7 @@ app.use("/deconnected", deconnected);
 //app.use('/account', account_midd);
 
 
-//SOCKET SERVER
+//SOCKET IO SERVER
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
@@ -549,22 +549,14 @@ app.get("/deconnected", (req, res) => {
   console.log("DECONNECTION");
 });
 
-
-io.on('connection', socket => {
-  socket.on('message_user', (message_user)=>{
-    console.log('MESSAGE : ', message_user);
-  });
-});
-
-
 app.get("**", (req, res) => {
   res.render("erreur_view_component.ejs");
 });
 
 io.on('connection', socket => {
   socket.on('message_user', message_user => {
-    console.log('message_user : ', message_user);
+    socket.emit('newMessage',message_user);
   });
 })
 
-app.listen(servePort);
+server.listen(servePort);
