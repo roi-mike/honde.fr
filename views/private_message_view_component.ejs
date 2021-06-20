@@ -21,12 +21,15 @@
     <%}else{%> <%- include('bar_nav_not_online_view_component.ejs')%> <%}%>
     <div id="private_message_container_div">
       <div id="middle_private_message_container_div">
+        <!--(TAG LISTE FRIENDS)-->
         <div id="friends_speak_private_message_container_div">
+          <!--FORM SEARCH FRIENDS-->
           <div id="seach_friends_speak_private_message_container_div">
                 <form id="form_seach_friends_speak_private_message_container_fom" action="" method="post">
                   <input id="bar_seach_friends_speak_private_message_container_inp" placeholder="champ de recherche d'amis" type="text">
                 </form>  
           </div>
+          <!--LISTE FRIENDS-->
           <div id="list_friends_speak_private_message_container_div">
             <div id="status_friends_speak_private_message_container_div">
               <div id="img_user_container_div">
@@ -40,13 +43,23 @@
             </div>
           </div>
         </div>
+        <!--(MESSAGE PRIVÉ)-->
         <div id="discussion_private_message_container_div">
-          <div>
-            <span>will.nazario : </span>
-            <span>Lorem ipsum dolor sit amet</span>
-          </div>
+            <div id="message_discussion_private_message_container_div">
+              <span>will.nazario : </span>
+              <span>Lorem ipsum dolor sit amet</span>
+            </div>
+            <div id="text_discussion_private_message_container_div">
+              <form id="form_discussion_private_user">
+                <label for="text_discussion_private_user"></label>
+                <input placeholder="votre message" id="text_discussion_private_user" name="text_discussion_private_user" type="text">
+                <button id="button_discussion_private_user">Envoyer</button>
+              </form>
+            </div>
         </div>
       </div>
     </div>
+    <script src="https://cdn.socket.io/4.1.2/socket.io.min.js" integrity="sha384-toS6mmwu70G0fw54EGlWWeA4z3dyJ+dlXBtSURSKN4vyRFOcxd3Bzjj/AoOwY+Rg" crossorigin="anonymous"></script>
+    <script src="/js/socket_private_message_view_component.js"></script>
 </body>
 </html>

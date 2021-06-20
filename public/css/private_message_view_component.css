@@ -8,23 +8,26 @@ body{
 }
 #private_message_container_div{
     width: 100%;
-    height: 100%;
+    height: 92%;
     display: flex;
     justify-content: center;
-    overflow: hidden;
 }
 #middle_private_message_container_div{
     width: 70%;
-    height: 100%;
-    margin-top: 90px;
+    height: 98%;
+    margin-top: 60px;
     display: flex;
     flex-direction: row;
+    border: 1px solid rgba(0, 0, 0, 0.2);
 }
+
+/*TAG LISTE FRIENDS*/
 #friends_speak_private_message_container_div{
     width: 30%;
     height: 100%;
+    border-right: 1px solid rgba(0, 0, 0, .4);
 }
-
+/*FORM SEARCH FRIENDS*/
 #seach_friends_speak_private_message_container_div{
     width: 100%;
     height: 30px;
@@ -46,6 +49,7 @@ body{
     border: 2px solid rgb(0, 195, 255);
 }
 
+/*LISTE FRIENDS*/
 #list_friends_speak_private_message_container_div{
     overflow: scroll;
     width: 100%;
@@ -74,7 +78,6 @@ body{
     top: 20px;
     right: 20px;
     border: 2px solid white;
-    background-color: yellowgreen;
     width: 15px;
     height: 15px;
     border-radius: 50%;
@@ -86,11 +89,40 @@ body{
     justify-content: center;
 }
 
-
-
 /*MESSAGE PRIVÉ*/
 #discussion_private_message_container_div{
-    width: 70%;
+    width: 80%;
     height: 100%;
-    background-color: beige;
+}
+#message_discussion_private_message_container_div{
+    width: 100%;
+    height: 93%;
+}
+#text_discussion_private_message_container_div{
+    width: 100%;
+    height: 50px ;
+}
+#form_discussion_private_user{
+    width: 99%;
+    height: 100%;
+    margin-left: 10px;
+}
+#text_discussion_private_user{
+    width: 80%;
+    height: 100%;
+    border: none;
+}
+#text_discussion_private_user:focus{
+    outline: 0;
+}
+#button_discussion_private_user{
+    cursor: pointer;
+    width: 18%;
+    height: 100%;
+    border: none;
+    font-size: 20px;
+}
+#button_discussion_private_user:active{
+    color: rgb(0, 174, 255);
+    font-weight: bold;
 }

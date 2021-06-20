@@ -2,7 +2,9 @@ const express = require("express");
 const session = require("express-session");
 var favicon = require("serve-favicon");
 var path = require("path");
+const cors = require('cors');
 const app = express();
+
 const ejs = require("ejs");
 
 const bcrypt = require("bcrypt");
@@ -44,6 +46,8 @@ app.use("/imgstatic", express.static("public/assets"));
 app.use("/avatar_user", express.static("imgs_videos_customers_posts/post_profil_avatar_customers"));
 app.use("/post_img_user", express.static("imgs_videos_customers_posts/post_images_videos_customers"));
 
+app.use(cors());
+
 //Middleware INCLUDE
 // const checkfield = require('./Middleware/checkfield');
 const validation_registration_midd = require("./Middleware/validation_registration_midd");
@@ -58,6 +62,11 @@ app.use(
 );
 app.use("/deconnected", deconnected);
 //app.use('/account', account_midd);
+
+
+//SOCKET SERVER
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 
 //HOME PAGE
 app.get("/", (req, res) => {
@@ -165,8 +174,6 @@ app.get("/accounts/passwordreset/congratulations", (req, res, next) => {
 
 //PAGE IF HE IS CONNECTED
 app.get("/account", (req, res) => {
-  console.log("/account 158 SESSION : ", req.session);
-  console.log("/ 57 : ", req.session);
   if (req.session.mail_user) {
     console.log("UNE SESSION");
     res.render("account_view_component.ejs", { user_session: req.session });
@@ -177,9 +184,9 @@ app.get("/account", (req, res) => {
   }
 });
 
-app.get("/direct/inbox/:profil_id", (req, res) => {
+app.get("/direct/inbox", (req, res) => {
   console.log("/direct/inbox/:profil_id 181 SESSION : ", req.session);
-  if (req.params.profil_id === req.session.id_user) {
+  if (req.session.id_user) {
     res.render("private_message_view_component.ejs", { user_session: req.session });
   } else {
     res.set("Content-Type", "text/html");
@@ -188,10 +195,8 @@ app.get("/direct/inbox/:profil_id", (req, res) => {
   }
 });
 
-app.get("/account/:profil_id", (req, res) => {
-  console.log("/account 158 SESSION : ", req.session);
-  console.log("/ 57 : ", req.session);
-  if (req.params.profil_id === req.session.id_user) {
+app.get("/account/profil", (req, res) => {
+  if (req.session.id_user) {
     console.log("UNE SESSION");
     res.render("profil_view_component.ejs", { user_session: req.session });
   } else {
@@ -201,9 +206,9 @@ app.get("/account/:profil_id", (req, res) => {
   }
 });
 
-app.get("/accounts/edit/:profil_id", (req, res) => {
+app.get("/accounts/edit", (req, res) => {
   console.log("/accounts/edit/:profil_id 198 SESSION : ", req.session);
-  if (req.params.profil_id === req.session.id_user) {
+  if (req.session.id_user) {
     console.log("UNE SESSION");
     res.render("setting_view_component.ejs", { user_session: req.session });
   } else {
@@ -318,7 +323,6 @@ app.post("/checkfield", async (req, res, next) => {
         await User.findOne({ email_user: email_user })
           .exec()
           .then(async (find_user) => {
-            console.log("find_user : ", find_user);
 
             //IF NOT FIND MAIL
             if (!find_user) {
@@ -401,8 +405,6 @@ app.post("/checkfield", async (req, res, next) => {
                         req.session.lastname_user = find_user.lastname_user;
                         req.session.avatar_user = find_user.avatar_user;
                         req.session.createdAt = find_user.createdAt;
-
-                        console.log(" req.session 326 ", req.session);
                         // res.status('301');
                         // res.setHeader('Content-Type', 'application/json');
                         // res.status(404);
@@ -529,40 +531,6 @@ app.post("/checkfield", async (req, res, next) => {
       } else {
         console.log("NOT SAVE ! ");
       }
-
-      // if(!regex_email.test(String(email_user))){
-      //     reponse_check["email_user"] = " Email incorect ";
-      // }
-
-      // if(regex_email.test(String(email_user))){
-      //     await User.findOne({email_user: email_user})
-      //     .then(find_email_user => {
-      //         if(find_email_user){
-      //             try{
-
-      //                 //ENVOIE DU MAIL DE VALIDATION POUR L INSCRIPTION
-      //                 console.log('REST 1');
-      //                 const Mailer_passwordreset = new Mailerpasswordreset();
-      //                 console.log('REST 2');
-      //                 Mailer_passwordreset.send_mail_reste_password(email_user, find_email_user.firstname_user);
-      //                 console.log('REST 3');
-
-      //                 reponse_check["email_user"] = "Vérifier votre boîte mail un mail vous à été envoyé";
-      //             }catch(error){
-      //                 console.log('TRY REST PASS WORD IMPOSIBLE');
-      //             }
-      //         }
-      //         if(!find_email_user){
-      //             try{
-      //                 reponse_check["email_user"] = " Email incorect USER ";
-      //             }catch(error){
-      //                 console.log('TRY CATCH ERROR');
-      //             }
-      //         }
-      //     })
-      //     .catch(err => {
-      //         console.log("ERREUR MESSAGE : => "+err);
-      //     });
     }
 
     res.status(200).json(reponse_check);
@@ -581,8 +549,22 @@ app.get("/deconnected", (req, res) => {
   console.log("DECONNECTION");
 });
 
+
+io.on('connection', socket => {
+  socket.on('message_user', (message_user)=>{
+    console.log('MESSAGE : ', message_user);
+  });
+});
+
+
 app.get("**", (req, res) => {
   res.render("erreur_view_component.ejs");
 });
+
+io.on('connection', socket => {
+  socket.on('message_user', message_user => {
+    console.log('message_user : ', message_user);
+  });
+})
 
 app.listen(servePort);
