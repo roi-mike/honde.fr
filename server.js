@@ -7,6 +7,7 @@ const session = require("express-session")({
   resave: true,
   saveUninitialized: true
 });
+
 const sharedsession = require("express-socket.io-session");
 var favicon = require("serve-favicon");
 var path = require("path");
@@ -25,9 +26,13 @@ app.use(session);
 io.use(sharedsession(session));
 
 //BDD CONNEXION
+const mongoose = require('mongoose'); 
 require("./Models/dbConfig.js");
 //COLLECTION
+const ObjectId = mongoose.Types.ObjectId;
 const { User } = require("./Models/User_db.js");
+const { MessagePrivate } = require("./Models/Message_private_db.js");
+const { RoomMessagePrivate } = require("./Models/Room_message_private_db");
 
 //ROUTE SERVEUR
 const servePort = process.env.PORT || 8080;
@@ -286,14 +291,14 @@ app.post("/checkfield", async (req, res, next) => {
         const password_user_crypt = bcrypt.hashSync(password_user, crypt_salt);
         const selt_token = 10000000000;
         const toke_validation_user = parseInt(Math.random() * selt_token);
-        const use_save_register = new User({
+        const user_save_register = new User({
           email_user: email_user,
           firstname_user: firstname_user,
           lastname_user: lastname_user,
           password_user: password_user_crypt,
           toke_valid_user: toke_validation_user,
         });
-        use_save_register.save();
+        user_save_register.save();
 
         //ENVOIE DU MAIL DE VALIDATION POUR L INSCRIPTION
         const mailer_register = new Mailer();
@@ -559,9 +564,28 @@ app.get("**", (req, res) => {
 //SOCKET IO
 io.on('connection', socket => {
 
+
+  //DISPLAY OLD MESSAGES WHEN THE USER IS CONNECTED
+  MessagePrivate.find({})
+  .exec()
+  .then(old_messages => {
+    socket.emit('old_messages', {old_messages : old_messages, id_session_user : socket.handshake.session.id_user });
+  })
+  .catch(erreur => {
+    console.log('ERREUR RECUP MESSAGE');
+  });
+
+
+  //RECEVE MESSAGES
   socket.on('new_message_user', message_user => {
-    socket.emit('newMessage',message_user);
-    console.log('SESSION SOCKET : YES SAMUEL', socket.handshake.session);
+    const user_save_message_private = new MessagePrivate({
+      id_sender : socket.handshake.session.id_user,
+      message : message_user,
+    });
+    user_save_message_private.save();
+    
+    socket.broadcast.emit('new_message_friend', {send_by: socket.handshake.session.lastname_user,message_user:message_user});
+    //console.log('SESSION SOCKET : YES SAMUEL', socket.handshake.session);
   });
 
   socket.on('disconnect', () => {

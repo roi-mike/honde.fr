@@ -98,10 +98,36 @@ body{
     width: 100%;
     height: 93%;
 }
+/*STYLE MESSAGES*/
+.new_message_me{
+    width: 90%;
+    float: right;
+    margin-top: 18px;
+    border-bottom: 1px solid rgb(0, 183, 255);
+}
+.old_messages_me{
+    width: 90%;
+    float: right;
+    margin-top: 18px;
+    background-color: red;
+}
+.old_messages{
+    width: 90%;
+    float: right;
+    margin-top: 18px;
+}
+.new_message_friend{
+    width: 90%;
+    float: left;
+    margin-top: 18px;
+    border-bottom: 1px solid rgb(0, 255, 106);
+}
+
 #text_discussion_private_message_container_div{
     width: 100%;
     height: 50px ;
 }
+
 #form_discussion_private_user{
     width: 99%;
     height: 100%;
@@ -126,3 +152,4 @@ body{
     color: rgb(0, 174, 255);
     font-weight: bold;
 }
+
