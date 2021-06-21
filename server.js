@@ -1,9 +1,16 @@
 const express = require("express");
-const session = require("express-session");
+const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+const session = require("express-session")({
+  secret: "my-secret",
+  resave: true,
+  saveUninitialized: true
+});
+const sharedsession = require("express-socket.io-session");
 var favicon = require("serve-favicon");
 var path = require("path");
 const cors = require('cors');
-const app = express();
 
 const ejs = require("ejs");
 
@@ -13,13 +20,9 @@ const nb_salt = 10;
 const crypt_salt = bcrypt.genSaltSync(nb_salt);
 
 //SESSION
-app.use(
-  session({
-    secret: "honde",
-    resave: true,
-    saveUninitialized: true,
-  })
-);
+app.use(session);
+
+io.use(sharedsession(session));
 
 //BDD CONNEXION
 require("./Models/dbConfig.js");
@@ -65,8 +68,7 @@ app.use("/deconnected", deconnected);
 
 
 //SOCKET IO SERVER
-const server = require('http').createServer(app);
-const io = require('socket.io')(server);
+
 
 //HOME PAGE
 app.get("/", (req, res) => {
@@ -553,10 +555,23 @@ app.get("**", (req, res) => {
   res.render("erreur_view_component.ejs");
 });
 
+
+//SOCKET IO
 io.on('connection', socket => {
-  socket.on('message_user', message_user => {
+
+  socket.on('new_message_user', message_user => {
     socket.emit('newMessage',message_user);
+    console.log('SESSION SOCKET : YES SAMUEL', socket.handshake.session);
+  });
+
+  socket.on('disconnect', () => {
+    socket.broadcast.emit('newUser');
   });
 })
 
 server.listen(servePort);
+
+
+//looa
+//lzpe
+//ppdzcc

@@ -11,7 +11,9 @@ socket.on('newMessage', (newMessage) => {
 
 button_discussion_private_user.addEventListener('click', function(evt){
     evt.preventDefault()
-    socket.emit("message_user", text_discussion_private_user.value );
+    socket.emit("new_message_user", text_discussion_private_user.value );
+    createElementFunction("new_message_user", text_discussion_private_user.value)
+    console.log('ENVOYE');
 });
 
 function createElementFunction(element, content){
@@ -19,7 +21,7 @@ function createElementFunction(element, content){
     const newElement = document.createElement('div');
 
     switch(element){
-        case 'newMessage':
+        case 'new_message_user':
             newElement.classList.add(element, 'message_send');
             newElement.textContent = firstname_user+" : "+content;
             document.getElementById('message_discussion_private_message_container_div').appendChild(newElement);
