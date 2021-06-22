@@ -77,7 +77,6 @@ app.use("/deconnected", deconnected);
 
 //HOME PAGE
 app.get("/", (req, res) => {
-  console.log("/ 62 SESSION : ", req.session);
   if (req.session.mail_user) {
     console.log("UNE SESSION");
     res.set("Content-Type", "text/html");
@@ -91,7 +90,6 @@ app.get("/", (req, res) => {
 
 //PAGE CONNECTION
 app.get("/accounts/login", (req, res) => {
-  console.log("/accounts/login 75 SESSION : ", req.session);
   if (req.session.mail_user) {
     console.log("UNE SESSION");
     res.set("Content-Type", "text/html");
@@ -105,7 +103,6 @@ app.get("/accounts/login", (req, res) => {
 
 //PAGE REGISTER FOR NEW CUSTOMER
 app.get("/accounts/emailsignup", (req, res) => {
-  console.log("/accounts/emailsignup 90 SESSION : ", req.session);
   if (req.session.mail_user) {
     console.log("UNE SESSION");
     res.set("Content-Type", "text/html");
@@ -119,20 +116,16 @@ app.get("/accounts/emailsignup", (req, res) => {
 
 //PAGE MESSAGE REGISTER IS GOOD CHECK MAIL FOR VALIDE TOKEN REGISTER
 app.get("/account/registerok/checkmail", (req, res) => {
-  console.log("/account/registerok/checkmail 104 SESSION : ", req.session);
   res.render("check_mail_after_register_view_component.ejs");
 });
 
 //PAGE MESSAGE AFTER VALID TOKEN REGISTER
 app.get("/account/validationregistration/:toke_validation_user", (req, res) => {
-  console.log("req.session.mail_user 111 SESSION : ", req.session.mail_user);
-
   res.render("validation_registration.ejs");
 });
 
 //PAGE SEND MAIL FOR CHANGE PASSE WORD
 app.get("/accounts/password/reset", (req, res, next) => {
-  console.log("/accounts/password/reset 81 SESSION :", req.session.mail_user);
   res.render("pwd_reset_view_component.ejs");
 });
 
@@ -153,7 +146,7 @@ app.get("/accounts/password/reset/:toke_pdw_reseting_user", (req, res) => {
     req.session.mail_user
   );
   req.session.toke_pdw_reseting_user = req.params.toke_pdw_reseting_user;
-  console.log("SESSION : => ", req.session);
+
   User.findOne({ toke_pwd_reseting_user: req.params.toke_pdw_reseting_user })
     .exec()
     .then((result) => {
@@ -182,7 +175,6 @@ app.get("/accounts/passwordreset/congratulations", (req, res, next) => {
 //PAGE IF HE IS CONNECTED
 app.get("/account", (req, res) => {
   if (req.session.mail_user) {
-    console.log("UNE SESSION");
     res.render("account_view_component.ejs", { user_session: req.session });
   } else {
     res.set("Content-Type", "text/html");
@@ -192,7 +184,18 @@ app.get("/account", (req, res) => {
 });
 
 app.get("/direct/inbox", (req, res) => {
-  console.log("/direct/inbox/:profil_id 181 SESSION : ", req.session);
+  if (req.session.id_user) {
+    res.render("private_message_view_component.ejs", { user_session: req.session });
+  } else {
+    res.set("Content-Type", "text/html");
+    res.redirect("/account");
+    return res.end();
+  }
+});
+
+
+app.get("/direct/t/:id_friends", (req, res) => {
+  console.log("/direct/inbox/:profil_id 181 SESSION : ", req.params);
   if (req.session.id_user) {
     res.render("private_message_view_component.ejs", { user_session: req.session });
   } else {
@@ -235,7 +238,7 @@ app.post('/search_friends_ajax', async (req, res, next) => {
   const input_search_friends = req.body.input_search_friends;
 
   if( form_type_view === "form_seach_friends_speak_private_message_container_fom"){
-    var regex = new RegExp(input_search_friends,"i");
+    var regex = new RegExp(input_search_friends, 'i');
     await User.find({$or:[ {'lastname_user':regex}, {'firstname_user':regex}]})
     .exec()
     .then(find_friends => {
@@ -583,15 +586,23 @@ app.get("**", (req, res) => {
   res.render("erreur_view_component.ejs");
 });
 
+var connectedUsers = [];
 
 //SOCKET IO
 io.on('connection', socket => {
+
+  console.log('CONNECTÈ')
+
+  socket.pseudo_id_user = socket.handshake.session.id_user;
+  connectedUsers.push(socket);
 
 
   //DISPLAY OLD MESSAGES WHEN THE USER IS CONNECTED
   MessagePrivate.find({})
   .exec()
   .then(old_messages => {
+    console.log('old_messages :', old_messages);
+    console.log('socket.handshake.session.id_user : ', socket.handshake.session.id_user);
     socket.emit('old_messages', {old_messages : old_messages, id_session_user : socket.handshake.session.id_user });
   })
   .catch(erreur => {
@@ -600,19 +611,47 @@ io.on('connection', socket => {
 
 
   //RECEVE MESSAGES
-  socket.on('new_message_user', message_user => {
+  socket.on('new_message_user', (message_user, recipient_user)=> {
+
+    //MODE : message_user : SALUT TOi et recipient_user : 60be0801a389221e2a08dade 622
+    console.log(`message_user : ${message_user} et recipient_user : ${recipient_user} 622`);
+
+    //RECEVER
+    User.findOne({ _id :recipient_user}, (err, user)=> {
+
+      if(!user){
+        return false;
+      }else{
+
     const user_save_message_private = new MessagePrivate({
       id_sender : socket.handshake.session.id_user,
       message : message_user,
-    });
+      recipient_user: recipient_user});
+
     user_save_message_private.save();
+
+    //ENVOYER LE MESSAGE
+    socket.broadcast.emit('new_message_friend', message_user);
+
+        // socketReceveiver = connectedUsers.find(socket => socket.pseudo_id_user === recipient_user);
     
-    socket.broadcast.emit('new_message_friend', {send_by: socket.handshake.session.lastname_user,message_user:message_user});
+        // if(socketReceveiver){
+        //   socketReceveiver.emit('new_message_friend', {send_by: socket.handshake.session.lastname_user,message_user:message_user});
+        // }
+      }
+    });
+
     //console.log('SESSION SOCKET : YES SAMUEL', socket.handshake.session);
   });
 
-  socket.on('disconnect', () => {
-    socket.broadcast.emit('newUser');
+  socket.on('disconnect', (reason) => {
+    console.log('DECONNECTION : 649 ')
+    var index = connectedUsers.indexOf(socket);
+    socket.emit('quit_user', 'true');
+    console.log('QUITE QUITE 652');
+    if(index > -1){
+      connectedUsers.splice(index, 1);
+    }
   });
 })
 

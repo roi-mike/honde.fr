@@ -8,7 +8,7 @@ const MessagePrivateCollection = new mongoose.Schema(
             min: 7,
             required: true
         },
-        recipient:{
+        recipient_user:{
             type: String,
             //required: true
         },
