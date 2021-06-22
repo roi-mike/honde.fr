@@ -225,6 +225,29 @@ app.get("/accounts/edit", (req, res) => {
   }
 });
 
+//Search Friends Ajax 
+
+app.post('/search_friends_ajax', async (req, res, next) => {
+
+  var reponse_check = {};
+
+  const form_type_view = req.body.form_type_view;
+  const input_search_friends = req.body.input_search_friends;
+
+  if( form_type_view === "form_seach_friends_speak_private_message_container_fom"){
+    var regex = new RegExp(input_search_friends,"i");
+    await User.find({$or:[ {'lastname_user':regex}, {'firstname_user':regex}]})
+    .exec()
+    .then(find_friends => {
+      reponse_check["frind_friends"] = find_friends;
+
+    })
+    .catch(erreur => {
+      console.log('246 PAS DE AMI', erreur);
+    })
+  }
+  res.status(200).json(reponse_check);
+});
 //AUTHENTICATE AJAX REQUEST
 app.post("/checkfield", async (req, res, next) => {
   //let User = require('./Models/User_db');

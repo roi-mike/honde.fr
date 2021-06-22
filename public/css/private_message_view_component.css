@@ -48,6 +48,21 @@ body{
 #bar_seach_friends_speak_private_message_container_inp:active{
     border: 2px solid rgb(0, 195, 255);
 }
+.show_list_friends{
+    display: block;
+    position: absolute;
+    overflow: scroll;
+    z-index: 1;
+    width: 30%;
+    height: 350px;
+    border: 1px solid black;
+    background-color: white;
+}
+
+.hide_list_friends{
+
+    display: none;
+}
 
 /*LISTE FRIENDS*/
 #list_friends_speak_private_message_container_div{
@@ -55,7 +70,7 @@ body{
     width: 100%;
     height: 100%;
 }
-#status_friends_speak_private_message_container_div{
+.status_friends_speak_private_message_container_div{
     display: flex;
     flex-direction: row;    
 }
@@ -109,7 +124,7 @@ body{
     width: 90%;
     float: right;
     margin-top: 18px;
-    background-color: red;
+    border-bottom: 1px solid rgb(255, 94, 0);
 }
 .old_messages{
     width: 90%;
