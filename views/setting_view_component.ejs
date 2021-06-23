@@ -42,7 +42,10 @@
             </div>
             <div id="reset_password_profil_user_setting_contenair_div">Modifier la photo de profil
             </div>
-            <input type="file">
+            <form action="/updatevideoandimage" id="form_reset_avatar_user" method="post" enctype="multipart/form-data" >
+              <input id="avatar_user_inp" name="avatar_user_inp" type="file">
+              <button type="submit" id="reset_avatar_btn">Changer votre avatar</button>
+            </form>
           </div>
           <div id="reset_password_setting_contenair_div">
             <form id="from_setting_contenair_div" action="" method="post">
@@ -62,5 +65,6 @@
         </div>
       </div>
     </div>
+    <script src="/js/Ajax_setting_view_component.js"></script>
   </body>
 </html>

@@ -23,14 +23,14 @@
       <!--MUR POSTÉ-->
       <div id="sout_account_container_div">
         <div id="sout_post_account_container_div">
-          <!--POSTÉ-->
+          <!--POSTÉ DEBUT-->
           <div id="post_img_account_container_div">
             <!--HEAR POST-->
             <div id="head_post_account_container_div">
               <div id="head_img_post_account_container_div">
                 <img
                   id="avatar_profil_post_authentification_img"
-                  src="/avatar_user/<%=user_session.avatar_user%>"
+                  src="/avatar_user/"
                   alt=""
                 />
               </div>
@@ -64,15 +64,15 @@
                   <i id="fa-heart-white" class="far fa-heart click-heart"></i>
                 </div>
                 <div class="class_heart_kind_follow_friend_account_container_div" id="comment_kind_follow_friend_account_container_div">
-                  <i class="far fa-comment"></i>
+                  <!--<i class="far fa-comment"></i>-->
                 </div>
                 <div class="class_heart_kind_follow_friend_account_container_div" id="message_kind_follow_friend_account_container_div">
-                  <i class="far fa-paper-plane"></i>
+                 <!--<i class="far fa-paper-plane"></i>-->
                 </div>
               </div>
               <div id="empty_kind_follow_friend_account_container_div"></div>
               <div  class="class_heart_kind_follow_friend_account_container_div" id="save_kind_follow_friend_account_container_div">
-                <div><i class="far fa-bookmark"></i></div>
+                <div><!--<i class="far fa-bookmark"></i>--></div>
               </div>
             </div>
 
@@ -97,7 +97,7 @@
                         <input id="send_message_btn" type="button" value="Publier">
                     </form>
                 </div>
-            </div>
+            </div><!--POSTÉ FIN-->
           </div>
         </div>
       </div>
@@ -116,7 +116,9 @@
             <div>Bonjour <%=user_session.lastname_user%></div>
             <div>Connectée</div>
           </div>
-          <div id="access_account_container_div">Basculer</div>
+          <a href="/account/profil">
+            <div id="access_account_container_div">Profil</div>
+          </a>
         </div>
         <div id="sugg_user_account_container_div">
           <span>Suggestions pour vous</span>
@@ -126,7 +128,7 @@
             <div id="avatar_user_account_container_div">
               <img
                 id="img_personnage_authentification_a"
-                src="/avatar_user/<%=user_session.avatar_user%>"
+                src="/avatar_user/"
                 alt=""
               />
             </div>
@@ -143,5 +145,6 @@
       </div>
     </div>
     <script src="/js/socket_account_view_component.js"></script>
+    <script src="/js/Ajax_account_view_component"></script>
   </body>
 </html>

@@ -5,6 +5,9 @@
 body{
     width: 100%;
 }
+a{
+    text-decoration: none;
+}
 #body_account_container_div{
     width: 100%;
     display: flex;
@@ -36,14 +39,17 @@ body{
     display: flex;
 }
 #head_img_post_account_container_div{
-    width: 18%;
+    width: 24%;
     height: 100%;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #avatar_profil_post_authentification_img{
-    width: 90%;
-    height: 90%;
+    border-radius: 50%;
+    width: 70%;
+    height: 100%;
 }
 #desk_head_post_account_container_div{
     width: 70%;
@@ -164,6 +170,7 @@ body{
     width: 65% ;
 }
 #access_account_container_div{
+    cursor: pointer;
     display: flex;
     align-items: center;
     width: 20%;

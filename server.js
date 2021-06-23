@@ -11,6 +11,7 @@ const session = require("express-session")({
 const sharedsession = require("express-socket.io-session");
 var favicon = require("serve-favicon");
 var path = require("path");
+const multer = require('multer');
 const cors = require('cors');
 
 const ejs = require("ejs");
@@ -31,6 +32,7 @@ require("./Models/dbConfig.js");
 //COLLECTION
 const ObjectId = mongoose.Types.ObjectId;
 const { User } = require("./Models/User_db.js");
+const { Posts } = require("./Models/Posts_db.js");
 const { MessagePrivate } = require("./Models/Message_private_db.js");
 const { RoomMessagePrivate } = require("./Models/Room_message_private_db");
 
@@ -78,12 +80,10 @@ app.use("/deconnected", deconnected);
 //HOME PAGE
 app.get("/", (req, res) => {
   if (req.session.mail_user) {
-    console.log("UNE SESSION");
     res.set("Content-Type", "text/html");
     res.redirect("/account");
     return res.end();
   } else {
-    console.log("PAS SESSION");
     res.render("index_view_component.ejs");
   }
 });
@@ -207,8 +207,15 @@ app.get("/direct/t/:id_friends", (req, res) => {
 
 app.get("/account/profil", (req, res) => {
   if (req.session.id_user) {
-    console.log("UNE SESSION");
-    res.render("profil_view_component.ejs", { user_session: req.session });
+    Posts.find({ id_post_user :req.session.id_user})
+    .exec()
+    .then( result_post => {
+      console.log('result_post : ', result_post);
+      res.render("profil_view_component.ejs", { user_session: req.session, result_post:result_post  });
+    })
+    .catch(erreur_post => {
+
+    })
   } else {
     res.set("Content-Type", "text/html");
     res.redirect("/account");
@@ -217,7 +224,6 @@ app.get("/account/profil", (req, res) => {
 });
 
 app.get("/accounts/edit", (req, res) => {
-  console.log("/accounts/edit/:profil_id 198 SESSION : ", req.session);
   if (req.session.id_user) {
     console.log("UNE SESSION");
     res.render("setting_view_component.ejs", { user_session: req.session });
@@ -565,15 +571,86 @@ app.post("/checkfield", async (req, res, next) => {
         console.log("NOT SAVE ! ");
       }
     }
-
     res.status(200).json(reponse_check);
   }
 });
+//set storage engine
+var storage = multer.diskStorage({
+  destination: function(req, file, cb){
+    cb(null, `/Users/mabozahondi/Desktop/honde.fr/imgs_videos_customers_posts/post_profil_avatar_customers`);
+  },
+  filename:function(req, file, cb){
+    cb(null, 'honde'+'-'+Date.now()+path.extname(file.originalname));
+  }
+});
+
+const upload = multer ({
+  storage:storage,
+}).single('avatar_user_inp');
 
 //UPDATE VIDEO AND IMG AJAX REQUEST
-app.post("/updatevideoandimage", (req, res) => {
-  console.log("UPDATE IMG AND VIDEO");
+app.post("/updatevideoandimage", async (req, res) => {
+  console.log('AVATAR ');
+  upload(req, res, async (err) => {
+    if(err){
+      console.log('Erreur : ', err);
+    }else{
+      await User.findOneAndUpdate({ _id :req.session.id_user},{ avatar_user : req.file.filename})
+      .exec()
+      .then(result => {
+        if(result){
+          req.session.avatar_user = req.file.filename;
+          res.set("Content-Type", "text/html");
+          res.redirect("/account");
+        }
+      })
+      .catch(erreur => {
+        console.log('599 add avatar erreur :', erreur);
+      })
+    }
+  });
 });
+
+//set storage engine
+var storage_post = multer.diskStorage({
+  destination: function(req, file, cb){
+    cb(null, `/Users/mabozahondi/Desktop/honde.fr/imgs_videos_customers_posts/post_images_videos_customers`);
+  },
+  filename:function(req, file, cb){
+    cb(null, 'honde_posts'+'_'+Date.now()+path.extname(file.originalname));
+  }
+});
+const upload_post = multer ({
+  storage:storage_post,
+}).single('post_img_inp');
+
+//UPDATE VIDEO AND IMG 
+app.post("/post_img_form", async (req, res) => {
+  console.log('POST IMAGE ET VDIEOS ');
+  upload_post(req, res, async (err) => {
+    if(err){
+      console.log('Erreur : ', err);
+    }else{
+      const post_save = new Posts({
+        id_post_user:req.session.id_user,
+        filename_post:req.file.filename,
+        mimetype:req.file.mimetype
+      });
+      post_save.save();
+      res.set("Content-Type", "text/html");
+      res.redirect("/account/profil");
+
+
+
+      //account/profil
+      
+    }
+  });
+});
+
+
+
+
 
 //DECONNECTÉ AJAX REQUEST
 app.get("/deconnected", (req, res) => {

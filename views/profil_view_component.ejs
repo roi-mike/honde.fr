@@ -45,16 +45,37 @@
 
       <!--MENU PROFIL-->
       <div id="menu_profil_user_container_div">
-        <div>PUBLICATIONS</div>
-        <div>ENREGISTREMENTS</div>
+        <div id="post_img_profil_user_container_div">PUBLIER IMAGE OU VIDEO</div>
+        <div id="post_img_profil_user_container_form">
+          <form action="/post_img_form" method="post" enctype="multipart/form-data">
+            <label for="post_img_inp"></label>
+            <input type="file" id="post_img_inp" name="post_img_inp">
+            <button type="submit" style="cursor: pointer; height:100%;background-color: white; border: 1px solid rgb(0, 195, 255)" >Poster un evement ( img ou vidéo )</button>
+          </form>
+        </div>
       </div>
 
     
       <!--IMAGE PROFIL-->
       <div id="publications_account_profil_user_container_div">
-        <div id="img_publications_account_profil_user_container_div" class="article_publications_account_profil_user_container_div">
-            <img src="" alt="" srcset="">
-        </div>
+
+        <%result_post.forEach(function(link){%>
+
+          <%if(link.mimetype ===  'image/jpeg' || link.mimetype ===  'image/png'){%>
+            <div id="img_publications_account_profil_user_container_div" class="article_publications_account_profil_user_container_div">
+                <img id="img_post" src="/post_img_user/<%=link.filename_post%>" alt="" srcset="">
+                <span id="img_post_delete">X</span>
+            </div>
+          <%}%>
+
+          <%if(link.mimetype ===  'video/mp4'){%>
+            <div id="img_publications_account_profil_user_container_div" class="article_publications_account_profil_user_container_div">
+                <video type="video/mp4" id="video_post" src="/post_img_user/<%=link.filename_post%>" controls></video>
+                <span id="video_post_delete">X</span>
+            </div>
+          <%}%>
+          
+        <%})%>
         <div id="video_publications_account_profil_user_container_div" class="article_publications_account_profil_user_container_div">
             <img src="" alt="" srcset="">
         </div>
